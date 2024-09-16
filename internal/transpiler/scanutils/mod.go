@@ -5,6 +5,11 @@ import (
 	"text/scanner"
 )
 
+func ScanAndReturn(s *scanner.Scanner) string {
+	s.Scan()
+	return s.TokenText()
+}
+
 func Must(s *scanner.Scanner, str string) {
 	s.Scan()
 	if s.TokenText() != str {
