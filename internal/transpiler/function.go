@@ -1,6 +1,7 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/transpiler/scanutils"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"io"
@@ -9,7 +10,7 @@ import (
 
 // transpile a function arguments
 func doFunctionArgs(s *scanner.Scanner) []typedVar {
-	mustScan(s, "(")
+	scanutils.Must(s, "(")
 
 	args := make([]typedVar, 0)
 
@@ -52,10 +53,10 @@ func doFunctionHeader(s *scanner.Scanner, output io.WriteCloser) {
 	args := doFunctionArgs(s)
 
 	// get return type
-	mustScan(s, "renvoie")
+	scanutils.Must(s, "renvoie")
 	retType := translate.Type(scanType(s))
 
-	mustScan(s, "debut")
+	scanutils.Must(s, "debut")
 
 	writeFunctionOrProcedureHeader(functionName, args, retType, output)
 }

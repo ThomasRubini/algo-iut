@@ -2,6 +2,7 @@ package transpiler
 
 import (
 	"algo-iut-1/internal/transpiler/loops"
+	"algo-iut-1/internal/transpiler/scanutils"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"io"
@@ -37,7 +38,7 @@ func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
 
 	s.Scan()
 	if s.TokenText() == "<" {
-		mustScan(s, "-")
+		scanutils.Must(s, "-")
 
 		s.Scan()
 		varValue := s.TokenText()
