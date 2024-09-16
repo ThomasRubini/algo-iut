@@ -1,6 +1,7 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"io"
 	"text/scanner"
@@ -24,6 +25,35 @@ func writeFunctionOrProcedureHeader(functionName string, args []typedVar, retTyp
 	output.Write([]byte(") {\n"))
 }
 
+func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
+	s.Scan()
+	varType := translate.Type(s.TokenText())
+
+	s.Scan()
+	varName := s.TokenText()
+
+	output.Write([]byte(fmt.Sprintf("%v %v", varType, varName)))
+
+	s.Scan()
+	if s.TokenText() == "<" {
+		mustScan(s, "-")
+
+		s.Scan()
+		varValue := s.TokenText()
+		output.Write([]byte(fmt.Sprintf(" = %s", varValue)))
+
+		s.Scan()
+	}
+
+	if s.TokenText() == ";" {
+		output.Write([]byte(";"))
+		return
+	} else {
+		panic(fmt.Sprintf("Invalid token: '%s'", s.TokenText()))
+	}
+
+}
+
 // scan a function/procedure body. Returns when encountering "fin"
 func doBody(s *scanner.Scanner, output io.WriteCloser) {
 	for s.Scan() != scanner.EOF {
@@ -32,6 +62,8 @@ func doBody(s *scanner.Scanner, output io.WriteCloser) {
 		case "fin":
 			output.Write([]byte("}\n\n"))
 			return
+		case "declarer":
+			doDeclare(s, output)
 		default:
 			panic(fmt.Sprintf("Unknown token: '%s'", tok))
 		}
