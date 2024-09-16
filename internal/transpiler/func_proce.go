@@ -28,9 +28,13 @@ func writeFunctionOrProcedureHeader(functionName string, args []typedVar, retTyp
 func doBody(s *scanner.Scanner, output io.WriteCloser) {
 	for s.Scan() != scanner.EOF {
 		tok := s.TokenText()
-		if tok == "fin" {
+		switch tok {
+		case "fin":
 			output.Write([]byte("}\n\n"))
 			return
+		default:
+			panic(fmt.Sprintf("Unknown token: '%s'", tok))
 		}
+
 	}
 }
