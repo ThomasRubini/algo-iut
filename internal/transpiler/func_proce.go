@@ -1,6 +1,7 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/transpiler/loops"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"io"
@@ -64,6 +65,8 @@ func doBody(s *scanner.Scanner, output io.WriteCloser) {
 			return
 		case "declarer":
 			doDeclare(s, output)
+		case "pour":
+			loops.DoPourLoop(s, output)
 		default:
 			panic(fmt.Sprintf("Unknown token: '%s'", tok))
 		}
