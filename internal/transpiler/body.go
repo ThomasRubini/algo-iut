@@ -11,30 +11,15 @@ import (
 )
 
 func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
-	s.Scan()
-	varType := translate.Type(s.TokenText())
+	varName := scanutils.Text(s)
 
-	s.Scan()
-	varName := s.TokenText()
+	scanutils.Must(s, ":")
 
-	output.Write([]byte(fmt.Sprintf("%v %v", varType, varName)))
-
-	s.Scan()
-	if s.TokenText() == "<" {
-		scanutils.Must(s, "-")
-
-		s.Scan()
-		varValue := s.TokenText()
-		output.Write([]byte(fmt.Sprintf(" = %s", varValue)))
-
-		s.Scan()
-	}
-
-	if s.TokenText() == ";" {
-		output.Write([]byte(";"))
-		return
+	varType, tabLength := translate.TypeMaybeSize(scanutils.UntilEOL(s))
+	if tabLength == nil {
+		output.Write([]byte(fmt.Sprintf("%v %v;", varType, varName)))
 	} else {
-		panic(fmt.Sprintf("Invalid token: '%s'", s.TokenText()))
+		output.Write([]byte(fmt.Sprintf("%v %v(%v);", varType, varName, *tabLength)))
 	}
 }
 
@@ -67,8 +52,8 @@ func doReturn(s *scanner.Scanner, output io.WriteCloser) {
 func insertTabs(s *scanner.Scanner, output io.WriteCloser) bool {
 	oldWhitespace := s.Whitespace
 	// remove space and tab
-	s.Whitespace ^= 1<<' '
-	s.Whitespace ^= 1<<'\t'
+	s.Whitespace ^= 1 << ' '
+	s.Whitespace ^= 1 << '\t'
 
 	for {
 		if s.Scan() == scanner.EOF {

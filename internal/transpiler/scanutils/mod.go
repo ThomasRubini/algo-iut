@@ -11,14 +11,23 @@ func Text(s *scanner.Scanner) string {
 	return s.TokenText()
 }
 
+func Type(s *scanner.Scanner) string {
+	tok := Text(s)
+	if tok == "tableau_de" {
+		return tok + " " + Type(s)
+	} else {
+		return tok
+	}
+}
+
 func UntilEOL(s *scanner.Scanner) string {
 	str := ""
 	for {
 		s.Scan()
 		if s.TokenText() == ";" {
-			return str
+			return str[1:]
 		} else {
-			str += s.TokenText()
+			str += " " + s.TokenText()
 		}
 	}
 }
