@@ -6,6 +6,7 @@ import (
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"io"
+	"slices"
 	"text/scanner"
 )
 
@@ -61,9 +62,37 @@ func doReturn(s *scanner.Scanner, output io.WriteCloser) {
 	output.Write([]byte(fmt.Sprintf("return %s;", value)))
 }
 
+// insert spaces or tabs for code body lines
+// returns "true" is we should process the line, "false" if EOF
+func insertTabs(s *scanner.Scanner, output io.WriteCloser) bool {
+	oldWhitespace := s.Whitespace
+	// remove space and tab
+	s.Whitespace ^= 1<<' '
+	s.Whitespace ^= 1<<'\t'
+
+	for {
+		if s.Scan() == scanner.EOF {
+			return false
+		}
+
+		if slices.Contains([]string{" ", "\t"}, s.TokenText()) {
+			output.Write([]byte(s.TokenText()))
+		} else {
+			break
+		}
+	}
+
+	s.Whitespace = oldWhitespace
+	return true
+}
+
 // scan a function/procedure body. Returns when encountering "fin"
 func doBody(s *scanner.Scanner, output io.WriteCloser) {
-	for s.Scan() != scanner.EOF {
+	for {
+		if !insertTabs(s, output) {
+			break
+		}
+
 		tok := s.TokenText()
 		switch tok {
 		case "fin":
