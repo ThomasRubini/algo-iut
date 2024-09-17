@@ -6,13 +6,13 @@ import (
 	"text/scanner"
 )
 
-func ScanAndReturn(s *scanner.Scanner) string {
+func Text(s *scanner.Scanner) string {
 	s.Scan()
 	return s.TokenText()
 }
 
 func Number(s *scanner.Scanner) int {
-	str := ScanAndReturn(s)
+	str := Text(s)
 	num, err := strconv.Atoi(str)
 	if err != nil {
 		panic(fmt.Sprintf("failed to convert %s to int: %v", str, err))
