@@ -11,6 +11,18 @@ func Text(s *scanner.Scanner) string {
 	return s.TokenText()
 }
 
+func UntilEOL(s *scanner.Scanner) string {
+	str := ""
+	for {
+		s.Scan()
+		if s.TokenText() == ";" {
+			return str
+		} else {
+			str += s.TokenText()
+		}
+	}
+}
+
 func Number(s *scanner.Scanner) int {
 	str := Text(s)
 	num, err := strconv.Atoi(str)
