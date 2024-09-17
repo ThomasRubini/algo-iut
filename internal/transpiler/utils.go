@@ -1,8 +1,13 @@
 package transpiler
 
 import (
+	"fmt"
 	"text/scanner"
 )
+
+func PanicInvalidToken(s *scanner.Scanner) {
+	panic(fmt.Sprintf("Invalid token: '%s'", s.TokenText()))
+}
 
 func scanType(s *scanner.Scanner) string {
 	tab_type := ""
