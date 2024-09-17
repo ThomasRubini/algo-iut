@@ -2,21 +2,26 @@ package entrypoint
 
 import (
 	"algo-iut-1/internal/transpiler"
-	"fmt"
 	"os"
 	"strings"
 	"text/scanner"
 )
 
-func Main() {
-	src, err := os.ReadFile("input.txt")
+func readFileToString(path string) string {
+
+	src, err := os.ReadFile(path)
 	if err != nil {
-		fmt.Println("Error reading file:", err)
-		return
+		panic("Error reading file: " + err.Error())
 	}
 
+	return string(src)
+}
+
+func Main() {
+	src := readFileToString("input.txt")
+
 	var s scanner.Scanner
-	s.Init(strings.NewReader(string(src)))
+	s.Init(strings.NewReader(src))
 
 	transpiler.DoRoot(&s, os.Stdout)
 
