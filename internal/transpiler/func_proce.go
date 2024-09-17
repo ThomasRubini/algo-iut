@@ -71,6 +71,7 @@ func doBody(s *scanner.Scanner, output io.WriteCloser) {
 		default:
 			panic(fmt.Sprintf("Unknown token: '%s'", tok))
 		}
+		output.Write([]byte("\n"))
 
 	}
 }
