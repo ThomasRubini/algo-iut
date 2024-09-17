@@ -74,6 +74,11 @@ func doIdentifier(s *scanner.Scanner, output io.WriteCloser, id string) {
 	}
 }
 
+func doReturn(s *scanner.Scanner, output io.WriteCloser) {
+	value := scanutils.UntilEOL(s)
+	output.Write([]byte(fmt.Sprintf("return %s;", value)))
+}
+
 // scan a function/procedure body. Returns when encountering "fin"
 func doBody(s *scanner.Scanner, output io.WriteCloser) {
 	for s.Scan() != scanner.EOF {
@@ -84,6 +89,8 @@ func doBody(s *scanner.Scanner, output io.WriteCloser) {
 			return
 		case "declarer":
 			doDeclare(s, output)
+		case "renvoie":
+			doReturn(s, output)
 		case "pour":
 			loops.DoPourLoop(s, output)
 		default:
