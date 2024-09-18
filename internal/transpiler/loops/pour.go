@@ -14,11 +14,11 @@ func DoPourLoop(s *scanner.Scanner, output io.WriteCloser) {
 	scanutils.Must(s, "variant_de")
 
 	min := scanutils.Expr(s)
-
 	scanutils.Must(s, "a")
 	max := scanutils.Expr(s)
 
 	scanutils.Must(s, ")")
+	scanutils.Must(s, "faire")
 
 	output.Write([]byte(fmt.Sprintf("for(int %v=%v;i<%v;i++) {", varName, strings.Join(min, " "), strings.Join(max, " "))))
 }

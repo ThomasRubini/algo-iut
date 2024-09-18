@@ -53,6 +53,8 @@ func doBody(s *scanner.Scanner, output io.WriteCloser) {
 		tok := s.TokenText()
 		s.Scan() // in any case it will be consumed
 		switch tok {
+		case "ffaire":
+			output.Write([]byte("}\n\n"))
 		case "fin":
 			output.Write([]byte("}\n\n"))
 			return
