@@ -17,21 +17,17 @@ func function(s *scanner.Scanner) []string {
 	tokens := make([]string, 0)
 
 	// handle empty params
-	if s.TokenText() == ")" {
-		s.Scan()
+	if Match(s, ")") {
 		return tokens
 	}
 
 	for {
-		varName := s.TokenText()
+		varName := Text(s)
 		tokens = append(tokens, varName)
-		s.Scan()
 
-		if s.TokenText() == ")" {
-			s.Scan()
+		if Match(s, ")") {
 			return tokens
-		} else if s.TokenText() == "," {
-			s.Scan()
+		} else if Match(s, ",") {
 		} else {
 			panic("expected ','")
 		}
