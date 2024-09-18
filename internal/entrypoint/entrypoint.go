@@ -23,6 +23,6 @@ func Main() {
 	var s scanner.Scanner
 	s.Init(strings.NewReader(src))
 
-	transpiler.DoRoot(&s, os.Stdout)
+	transpiler.DoRoot(&s, os.Stdout, src)
 
 }

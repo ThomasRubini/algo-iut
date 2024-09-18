@@ -1,6 +1,7 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/tabanalyser"
 	"algo-iut-1/internal/transpiler/loops"
 	"algo-iut-1/internal/transpiler/scanutils"
 	"algo-iut-1/internal/transpiler/translate"
@@ -48,8 +49,14 @@ func doReturn(s *scanner.Scanner, output io.WriteCloser) {
 }
 
 // scan a function/procedure body. Returns when encountering "fin"
-func doBody(s *scanner.Scanner, output io.WriteCloser) {
+func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
+	tabsPrefix := tabanalyser.Do(src)
+
 	for {
+		// write tabs/space prefix
+		prefix := tabsPrefix[s.Pos().Line-1]
+		output.Write([]byte(prefix))
+
 		tok := s.TokenText()
 		s.Scan() // in any case it will be consumed
 		switch tok {

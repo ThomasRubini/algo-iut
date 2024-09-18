@@ -6,7 +6,7 @@ import (
 	"text/scanner"
 )
 
-func DoRoot(s *scanner.Scanner, output io.WriteCloser) {
+func DoRoot(s *scanner.Scanner, output io.WriteCloser, src string) {
 	// first scan
 	s.Scan()
 
@@ -15,9 +15,9 @@ func DoRoot(s *scanner.Scanner, output io.WriteCloser) {
 		s.Scan()
 		switch tok {
 		case "fonction":
-			doFunction(s, output)
+			doFunction(s, output, src)
 		case "procedure":
-			doProcedure(s, output)
+			doProcedure(s, output, src)
 		default:
 			panic(fmt.Sprintf("unexpected token '%s'", tok))
 		}

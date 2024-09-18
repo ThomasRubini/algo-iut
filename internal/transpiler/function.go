@@ -23,7 +23,7 @@ func doFunctionHeader(s *scanner.Scanner, output io.WriteCloser) {
 	writeFunctionOrProcedureHeader(functionName, args, retType, output)
 }
 
-func doFunction(s *scanner.Scanner, output io.WriteCloser) {
+func doFunction(s *scanner.Scanner, output io.WriteCloser, src string) {
 	doFunctionHeader(s, output)
-	doBody(s, output)
+	doBody(s, output, src)
 }
