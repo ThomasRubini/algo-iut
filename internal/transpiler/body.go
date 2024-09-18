@@ -50,22 +50,18 @@ func doReturn(s *scanner.Scanner, output io.WriteCloser) {
 func doBody(s *scanner.Scanner, output io.WriteCloser) {
 	for {
 		tok := s.TokenText()
+		s.Scan() // in any case it will be consumed
 		switch tok {
 		case "fin":
-			s.Scan()
 			output.Write([]byte("}\n\n"))
 			return
 		case "declarer":
-			s.Scan()
 			doDeclare(s, output)
 		case "renvoie":
-			s.Scan()
 			doReturn(s, output)
 		case "pour":
-			s.Scan()
 			loops.DoPourLoop(s, output)
 		default:
-			s.Scan()
 			doIdentifier(s, output, tok)
 		}
 		output.Write([]byte("\n"))
