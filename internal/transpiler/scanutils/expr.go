@@ -38,11 +38,24 @@ func function(s *scanner.Scanner) []string {
 	}
 }
 
+func TextOrFunction(s *scanner.Scanner) []string {
+	id := Text(s)
+
+	// check if its a function
+	if Match(s, "(") {
+		l := make([]string, 0)
+		l = append(l, id)
+		l = append(l, function(s)...)
+		return l
+	} else {
+		return []string{id}
+	}
+}
+
 func Expr(s *scanner.Scanner) []string {
 	tokens := make([]string, 0)
 
-	id := Text(s)
-	tokens = append(tokens, id)
+	tokens = append(tokens, TextOrFunction(s)...)
 
 	mode := ExprNextOperator
 
@@ -53,12 +66,7 @@ func Expr(s *scanner.Scanner) []string {
 			if isOperator {
 				panic("2 operators detected")
 			} else {
-				tokens = append(tokens, Text(s))
-
-				// check if its a function
-				if Match(s, "(") {
-					tokens = append(tokens, function(s)...)
-				}
+				tokens = append(tokens, TextOrFunction(s)...)
 			}
 			mode = ExprNextOperator
 		} else if mode == ExprNextOperator { // if it expects an operator
