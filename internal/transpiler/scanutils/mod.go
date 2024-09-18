@@ -7,8 +7,9 @@ import (
 )
 
 func Text(s *scanner.Scanner) string {
+	tok := s.TokenText()
 	s.Scan()
-	return s.TokenText()
+	return tok
 }
 
 func Type(s *scanner.Scanner) string {
@@ -23,11 +24,12 @@ func Type(s *scanner.Scanner) string {
 func UntilEOL(s *scanner.Scanner) string {
 	str := ""
 	for {
-		s.Scan()
 		if s.TokenText() == ";" {
+			s.Scan()
 			return str[1:]
 		} else {
 			str += " " + s.TokenText()
+			s.Scan()
 		}
 	}
 }
@@ -41,9 +43,18 @@ func Number(s *scanner.Scanner) int {
 	return num
 }
 
-func Must(s *scanner.Scanner, str string) {
-	s.Scan()
-	if s.TokenText() != str {
-		panic(fmt.Sprintf("expected '%s', got '%s'", str, s.TokenText()))
+func Must(s *scanner.Scanner, expected string) {
+	got := Text(s)
+	if got != expected {
+		panic(fmt.Sprintf("expected '%s', got '%s' (position: %v)", expected, got, s.Pos()))
+	}
+}
+
+func Match(s *scanner.Scanner, expected string) bool {
+	if s.TokenText() == expected {
+		s.Scan()
+		return true
+	} else {
+		return false
 	}
 }

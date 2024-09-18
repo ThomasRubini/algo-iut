@@ -15,16 +15,10 @@ func DoPourLoop(s *scanner.Scanner, output io.WriteCloser) {
 
 	min := scanutils.Expr(s)
 
-	if s.TokenText() != "a" {
-		panic("no")
-	}
-	// scanutils.Must(s, "a")
+	scanutils.Must(s, "a")
 	max := scanutils.Expr(s)
 
-	// scanutils.Must(s, ")");
-	if s.TokenText() != ")" {
-		panic("no")
-	}
+	scanutils.Must(s, ")")
 
 	output.Write([]byte(fmt.Sprintf("for(int %v=%v;i<%v;i++) {", varName, strings.Join(min, " "), strings.Join(max, " "))))
 }

@@ -7,11 +7,16 @@ import (
 )
 
 func DoRoot(s *scanner.Scanner, output io.WriteCloser) {
-	for s.Scan() != scanner.EOF {
+	// first scan
+	s.Scan()
+
+	for s.Peek() != scanner.EOF {
 		switch s.TokenText() {
 		case "fonction":
+			s.Scan()
 			doFunction(s, output)
 		case "procedure":
+			s.Scan()
 			doProcedure(s, output)
 		default:
 			panic(fmt.Sprintf("unexpected token '%s'", s.TokenText()))

@@ -39,8 +39,6 @@ func function(s *scanner.Scanner) []string {
 }
 
 func Expr(s *scanner.Scanner) []string {
-	s.Scan() // TODO fix all the logic everywhere
-
 	tokens := make([]string, 0)
 
 	id := s.TokenText()
@@ -72,7 +70,6 @@ func Expr(s *scanner.Scanner) []string {
 				tokens = append(tokens, s.TokenText())
 				s.Scan() // eat
 			} else {
-				// do not eat, to account for the usual methods like Text() that eat before reading (which is bad behaviour btw)
 				return tokens
 			}
 			mode = ExprNextId

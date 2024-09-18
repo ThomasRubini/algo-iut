@@ -21,22 +21,21 @@ func doFunctionOrProcedureArgs(s *scanner.Scanner) []typedVar {
 	args := make([]typedVar, 0)
 
 	// handle empty args
-	s.Scan()
-	if s.TokenText() == ")" {
+	if scanutils.Match(s, ")") {
 		return args
 	}
 
 	for {
 		// get var name
-		varName := s.TokenText()
+		varName := scanutils.Text(s)
 
 		scanutils.Must(s, ":")
 
 		// check arg type
 		var needRef bool
-		s.Scan()
 		argType := s.TokenText()
 		if slices.Contains([]string{"in", "out"}, argType) {
+			s.Scan()
 			// idk if there is a real difference between them in generated C++
 			needRef = argType == "out"
 		} else {
@@ -50,11 +49,11 @@ func doFunctionOrProcedureArgs(s *scanner.Scanner) []typedVar {
 		args = append(args, typedVar{varType, varName, needRef})
 
 		// check for end/next arg
-		s.Scan()
 		if s.TokenText() == ")" {
+			s.Scan()
 			return args
 		} else if s.TokenText() == "," {
-			s.Scan() // prepare for next scan at the beginning of the loop
+			s.Scan()
 			continue
 		} else {
 			panic(fmt.Sprintf("expected , or ), got %s", s.TokenText()))

@@ -6,7 +6,6 @@ import (
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"io"
-	"slices"
 	"text/scanner"
 )
 
@@ -31,8 +30,8 @@ func doAssignInner(s *scanner.Scanner, output io.WriteCloser, varName string) {
 }
 
 func doIdentifier(s *scanner.Scanner, output io.WriteCloser, id string) {
-	if scanutils.Text(s) == "<" {
-		if scanutils.Text(s) == "-" {
+	if scanutils.Match(s, "<") {
+		if scanutils.Match(s, "-") {
 			doAssignInner(s, output, id)
 		} else {
 			PanicInvalidToken(s)
@@ -47,51 +46,27 @@ func doReturn(s *scanner.Scanner, output io.WriteCloser) {
 	output.Write([]byte(fmt.Sprintf("return %s;", value)))
 }
 
-// insert spaces or tabs for code body lines
-// returns "true" is we should process the line, "false" if EOF
-func insertTabs(s *scanner.Scanner, output io.WriteCloser) bool {
-	oldWhitespace := s.Whitespace
-	// remove space and tab
-	s.Whitespace ^= 1 << ' '
-	s.Whitespace ^= 1 << '\t'
-
-	for {
-		if s.Scan() == scanner.EOF {
-			return false
-		}
-
-		if slices.Contains([]string{" ", "\t"}, s.TokenText()) {
-			output.Write([]byte(s.TokenText()))
-		} else {
-			break
-		}
-	}
-
-	s.Whitespace = oldWhitespace
-	return true
-}
-
 // scan a function/procedure body. Returns when encountering "fin"
 func doBody(s *scanner.Scanner, output io.WriteCloser) {
 	for {
-		if !insertTabs(s, output) {
-			break
-		}
-
 		tok := s.TokenText()
 		switch tok {
 		case "fin":
+			s.Scan()
 			output.Write([]byte("}\n\n"))
 			return
 		case "declarer":
+			s.Scan()
 			doDeclare(s, output)
 		case "renvoie":
+			s.Scan()
 			doReturn(s, output)
 		case "pour":
+			s.Scan()
 			loops.DoPourLoop(s, output)
 		default:
+			s.Scan()
 			doIdentifier(s, output, tok)
-			// panic(fmt.Sprintf("Unknown token: '%s'", tok))
 		}
 		output.Write([]byte("\n"))
 

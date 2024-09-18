@@ -9,8 +9,7 @@ import (
 
 func doFunctionHeader(s *scanner.Scanner, output io.WriteCloser) {
 	// get function name
-	s.Scan()
-	functionName := s.TokenText()
+	functionName := scanutils.Text(s)
 
 	// get function args
 	args := doFunctionOrProcedureArgs(s)
