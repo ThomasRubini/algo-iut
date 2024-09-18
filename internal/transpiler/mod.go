@@ -11,15 +11,15 @@ func DoRoot(s *scanner.Scanner, output io.WriteCloser) {
 	s.Scan()
 
 	for s.Peek() != scanner.EOF {
-		switch s.TokenText() {
+		tok := s.TokenText()
+		s.Scan()
+		switch tok {
 		case "fonction":
-			s.Scan()
 			doFunction(s, output)
 		case "procedure":
-			s.Scan()
 			doProcedure(s, output)
 		default:
-			panic(fmt.Sprintf("unexpected token '%s'", s.TokenText()))
+			panic(fmt.Sprintf("unexpected token '%s'", tok))
 		}
 	}
 }
