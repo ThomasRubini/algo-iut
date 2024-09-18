@@ -29,7 +29,8 @@ func doAssignInner(s *scanner.Scanner, output io.WriteCloser, varName string) {
 	output.Write([]byte(fmt.Sprintf("%s = %s;", varName, value)))
 }
 
-func doIdentifier(s *scanner.Scanner, output io.WriteCloser, id string) {
+// line that starts with an identifier. Identifier is already scanned as `id`
+func doIdentifierStart(s *scanner.Scanner, output io.WriteCloser, id string) {
 	if scanutils.Match(s, "<") {
 		if scanutils.Match(s, "-") {
 			doAssignInner(s, output, id)
@@ -62,7 +63,7 @@ func doBody(s *scanner.Scanner, output io.WriteCloser) {
 		case "pour":
 			loops.DoPourLoop(s, output)
 		default:
-			doIdentifier(s, output, tok)
+			doIdentifierStart(s, output, tok)
 		}
 		output.Write([]byte("\n"))
 
