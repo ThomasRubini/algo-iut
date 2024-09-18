@@ -41,8 +41,7 @@ func function(s *scanner.Scanner) []string {
 func Expr(s *scanner.Scanner) []string {
 	tokens := make([]string, 0)
 
-	id := s.TokenText()
-	s.Scan()
+	id := Text(s)
 	tokens = append(tokens, id)
 
 	mode := ExprNextOperator
@@ -54,12 +53,10 @@ func Expr(s *scanner.Scanner) []string {
 			if isOperator {
 				panic("2 operators detected")
 			} else {
-				tokens = append(tokens, s.TokenText())
-				s.Scan() // eat
+				tokens = append(tokens, Text(s))
 
 				// check if its a function
-				if s.TokenText() == "(" {
-					s.Scan()
+				if Match(s, "(") {
 					tokens = append(tokens, function(s)...)
 				}
 			}
@@ -67,8 +64,7 @@ func Expr(s *scanner.Scanner) []string {
 		} else if mode == ExprNextOperator { // if it expects an operator
 
 			if isOperator {
-				tokens = append(tokens, s.TokenText())
-				s.Scan() // eat
+				tokens = append(tokens, Text(s))
 			} else {
 				return tokens
 			}
