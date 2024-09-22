@@ -66,6 +66,9 @@ func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
 		case "pour":
 			s.Scan()
 			loops.DoPourLoop(s, output)
+		case "boucle":
+			s.Scan()
+			loops.DoInfiniteLoop(s, output)
 		default:
 			doLValueStart(s, output)
 		}
