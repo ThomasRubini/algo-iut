@@ -2,6 +2,8 @@ package entrypoint
 
 import (
 	"algo-iut-1/internal/transpiler"
+	"flag"
+	"io"
 	"os"
 	"strings"
 	"text/scanner"
@@ -17,12 +19,35 @@ func readFileToString(path string) string {
 	return string(src)
 }
 
+func handleOutput(outputArg string) io.WriteCloser {
+	if outputArg == "-" {
+		return os.Stdout
+	} else {
+		output, err := os.Create(outputArg)
+		if err != nil {
+			panic("Error creating output file: " + err.Error())
+		}
+		return output
+	}
+}
+
+func stringFlag(name, defaultValue, help string) *string {
+	var str string
+	flag.StringVar(&str, name, defaultValue, help)
+	flag.StringVar(&str, string(name[0]), defaultValue, help)
+	return &str
+}
+
 func Main() {
-	src := readFileToString("input.txt")
+	inputArg := stringFlag("input", "input.txt", "input file")
+	outputArg := stringFlag("output", "output.txt", "output file. Use '-' for stdout")
+	flag.Parse()
+
+	src := readFileToString(*inputArg)
+	output := handleOutput(*outputArg)
+	defer output.Close()
 
 	var s scanner.Scanner
 	s.Init(strings.NewReader(src))
-
-	transpiler.DoRoot(&s, os.Stdout, src)
-
+	transpiler.DoRoot(&s, output, src)
 }
