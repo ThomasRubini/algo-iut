@@ -2,7 +2,7 @@ package scanutils
 
 import (
 	"algo-iut-1/internal/ref"
-	"fmt"
+	"algo-iut-1/internal/utils"
 	"text/scanner"
 )
 
@@ -48,28 +48,29 @@ func function(s *scanner.Scanner) []string {
 	}
 
 	for {
-		varName := Text(s)
-		tokens = append(tokens, varName)
+		varName := Expr(s)
+		tokens = append(tokens, varName...)
 
 		if Match(s, ")") {
-			fmt.Printf("C (next is %v)\n", s.TokenText())
 			return tokens
 		} else if Match(s, ",") {
+			tokens = append(tokens, ",")
 		} else {
-			panic("expected ','")
+			utils.PanicInvalidToken(s, "expected ',' or ')'")
 		}
 	}
 }
 
 func TextOrFunction(s *scanner.Scanner) []string {
-	fmt.Printf("D (next is %v)\n", s.TokenText())
 	id := Text(s)
 
 	// check if its a function
 	if Match(s, "(") {
 		l := make([]string, 0)
 		l = append(l, id)
+		l = append(l, "(")
 		l = append(l, function(s)...)
+		l = append(l, ")")
 		return l
 	} else {
 		return []string{id}
@@ -77,7 +78,6 @@ func TextOrFunction(s *scanner.Scanner) []string {
 }
 
 func Expr(s *scanner.Scanner) []string {
-	fmt.Printf("Call to Expr() (next is %v)\n", s.TokenText())
 	tokens := make([]string, 0)
 
 	tokens = append(tokens, TextOrFunction(s)...)
@@ -88,20 +88,16 @@ func Expr(s *scanner.Scanner) []string {
 		op := tryGetOperator(s)
 
 		if mode == ExprNextId { // if it expects an id
-			fmt.Printf("Want ID (next is %v)\n", s.TokenText())
 			if op != nil {
 				panic("2 operators detected")
 			} else {
 				tokens = append(tokens, TextOrFunction(s)...)
-				fmt.Printf("A (next is %v)\n", s.TokenText())
 			}
 			mode = ExprNextOperator
 		} else if mode == ExprNextOperator { // if it expects an operator
-			fmt.Printf("Want operator (next is %v)\n", s.TokenText())
 			if op != nil {
 				tokens = append(tokens, *op)
 			} else {
-				fmt.Printf("RETURN (next is %v)\n", s.TokenText())
 				return tokens
 			}
 			mode = ExprNextId
