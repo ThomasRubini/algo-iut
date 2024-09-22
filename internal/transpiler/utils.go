@@ -22,7 +22,3 @@ func scanType(s *scanner.Scanner) string {
 		}
 	}
 }
-
-// func scanDeepExpr(s scanner.Scanner, startRune, endRune rune) string {
-
-// }
