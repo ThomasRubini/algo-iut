@@ -1,16 +1,42 @@
 package scanutils
 
 import (
-	"slices"
+	"algo-iut-1/internal/ref"
+	"fmt"
 	"text/scanner"
 )
-
-var operators = []string{"+", "-", "*", "/"}
 
 const (
 	ExprNextId       = iota
 	ExprNextOperator = iota
 )
+
+func tryGetOperator(s *scanner.Scanner) *string {
+	var simpleOperators = "+-*/"
+	for _, c := range simpleOperators {
+		if Match(s, string(c)) {
+			return ref.String(string(c))
+		}
+	}
+
+	if Match(s, "=") {
+		Must(s, "=")
+		return ref.String("==")
+	}
+	if Match(s, "!") {
+		Must(s, "=")
+		return ref.String("!=")
+	}
+	if Match(s, ">") {
+		Match(s, "=")
+		return ref.String(">=")
+	}
+	if Match(s, "<") {
+		Match(s, "=")
+		return ref.String("<=")
+	}
+	return nil
+}
 
 // assume `(` is already eaten
 func function(s *scanner.Scanner) []string {
@@ -26,6 +52,7 @@ func function(s *scanner.Scanner) []string {
 		tokens = append(tokens, varName)
 
 		if Match(s, ")") {
+			fmt.Printf("C (next is %v)\n", s.TokenText())
 			return tokens
 		} else if Match(s, ",") {
 		} else {
@@ -35,6 +62,7 @@ func function(s *scanner.Scanner) []string {
 }
 
 func TextOrFunction(s *scanner.Scanner) []string {
+	fmt.Printf("D (next is %v)\n", s.TokenText())
 	id := Text(s)
 
 	// check if its a function
@@ -49,6 +77,7 @@ func TextOrFunction(s *scanner.Scanner) []string {
 }
 
 func Expr(s *scanner.Scanner) []string {
+	fmt.Printf("Call to Expr() (next is %v)\n", s.TokenText())
 	tokens := make([]string, 0)
 
 	tokens = append(tokens, TextOrFunction(s)...)
@@ -56,20 +85,23 @@ func Expr(s *scanner.Scanner) []string {
 	mode := ExprNextOperator
 
 	for {
-		isOperator := slices.Contains(operators, s.TokenText())
+		op := tryGetOperator(s)
 
 		if mode == ExprNextId { // if it expects an id
-			if isOperator {
+			fmt.Printf("Want ID (next is %v)\n", s.TokenText())
+			if op != nil {
 				panic("2 operators detected")
 			} else {
 				tokens = append(tokens, TextOrFunction(s)...)
+				fmt.Printf("A (next is %v)\n", s.TokenText())
 			}
 			mode = ExprNextOperator
 		} else if mode == ExprNextOperator { // if it expects an operator
-
-			if isOperator {
-				tokens = append(tokens, Text(s))
+			fmt.Printf("Want operator (next is %v)\n", s.TokenText())
+			if op != nil {
+				tokens = append(tokens, *op)
 			} else {
+				fmt.Printf("RETURN (next is %v)\n", s.TokenText())
 				return tokens
 			}
 			mode = ExprNextId

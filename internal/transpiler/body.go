@@ -50,6 +50,10 @@ func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
 
 		tok := s.TokenText()
 		switch tok {
+		// conditions
+		case "si":
+			s.Scan()
+			doCondition(s, output)
 		// loops
 		case "pour":
 			s.Scan()
