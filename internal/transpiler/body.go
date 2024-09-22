@@ -24,7 +24,7 @@ func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
 }
 
 // line that starts with an identifier. Identifier is already scanned as `id`
-func doIdentifierStart(s *scanner.Scanner, output io.WriteCloser) {
+func doLValueStart(s *scanner.Scanner, output io.WriteCloser) {
 	lval := scanutils.LValue(s)
 
 	scanutils.Must(s, "<")
@@ -67,7 +67,7 @@ func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
 			s.Scan()
 			loops.DoPourLoop(s, output)
 		default:
-			doIdentifierStart(s, output)
+			doLValueStart(s, output)
 		}
 		output.Write([]byte("\n"))
 
