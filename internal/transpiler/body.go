@@ -26,17 +26,12 @@ func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
 // line that starts with an identifier. Identifier is already scanned as `id`
 func doIdentifierStart(s *scanner.Scanner, output io.WriteCloser) {
 	lval := scanutils.LValue(s)
-	if scanutils.Match(s, "<") {
-		if scanutils.Match(s, "-") {
-			value := scanutils.UntilEOL(s)
 
-			output.Write([]byte(fmt.Sprintf("%s = %s;", lval, value)))
-		} else {
-			PanicInvalidToken(s)
-		}
-	} else {
-		PanicInvalidToken(s)
-	}
+	scanutils.Must(s, "<")
+	scanutils.Must(s, "-")
+
+	value := scanutils.UntilEOL(s)
+	output.Write([]byte(fmt.Sprintf("%s = %s;", lval, value)))
 }
 
 func doReturn(s *scanner.Scanner, output io.WriteCloser) {
