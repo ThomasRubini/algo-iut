@@ -50,25 +50,27 @@ func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
 
 		tok := s.TokenText()
 		switch tok {
-		case "ffaire":
-			s.Scan()
-			output.Write([]byte("}"))
-		case "fin":
-			s.Scan()
-			output.Write([]byte("}\n"))
-			return
-		case "declarer":
-			s.Scan()
-			doDeclare(s, output)
-		case "renvoie":
-			s.Scan()
-			doReturn(s, output)
+		// loops
 		case "pour":
 			s.Scan()
 			loops.DoPourLoop(s, output)
 		case "boucle":
 			s.Scan()
 			loops.DoInfiniteLoop(s, output)
+		case "ffaire":
+			s.Scan()
+			output.Write([]byte("}"))
+		// others
+		case "declarer":
+			s.Scan()
+			doDeclare(s, output)
+		case "renvoie":
+			s.Scan()
+			doReturn(s, output)
+		case "fin":
+			s.Scan()
+			output.Write([]byte("}\n"))
+			return
 		default:
 			doLValueStart(s, output)
 		}
