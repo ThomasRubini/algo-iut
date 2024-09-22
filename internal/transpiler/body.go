@@ -23,18 +23,14 @@ func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
 	}
 }
 
-// assume `x <-` is already scanned
-func doAssignInner(s *scanner.Scanner, output io.WriteCloser, varName string) {
-	value := scanutils.UntilEOL(s)
-
-	output.Write([]byte(fmt.Sprintf("%s = %s;", varName, value)))
-}
-
 // line that starts with an identifier. Identifier is already scanned as `id`
-func doIdentifierStart(s *scanner.Scanner, output io.WriteCloser, id string) {
+func doIdentifierStart(s *scanner.Scanner, output io.WriteCloser) {
+	lval := scanutils.LValue(s)
 	if scanutils.Match(s, "<") {
 		if scanutils.Match(s, "-") {
-			doAssignInner(s, output, id)
+			value := scanutils.UntilEOL(s)
+
+			output.Write([]byte(fmt.Sprintf("%s = %s;", lval, value)))
 		} else {
 			PanicInvalidToken(s)
 		}
@@ -58,21 +54,25 @@ func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
 		output.Write([]byte(prefix))
 
 		tok := s.TokenText()
-		s.Scan() // in any case it will be consumed
 		switch tok {
 		case "ffaire":
+			s.Scan()
 			output.Write([]byte("}\n\n"))
 		case "fin":
+			s.Scan()
 			output.Write([]byte("}\n\n"))
 			return
 		case "declarer":
+			s.Scan()
 			doDeclare(s, output)
 		case "renvoie":
+			s.Scan()
 			doReturn(s, output)
 		case "pour":
+			s.Scan()
 			loops.DoPourLoop(s, output)
 		default:
-			doIdentifierStart(s, output, tok)
+			doIdentifierStart(s, output)
 		}
 		output.Write([]byte("\n"))
 

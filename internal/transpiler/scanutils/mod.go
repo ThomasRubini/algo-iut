@@ -12,10 +12,28 @@ func Text(s *scanner.Scanner) string {
 	return tok
 }
 
+// just because I think 'TokenText' is a bad name
+func Peek(s *scanner.Scanner) string {
+	return s.TokenText()
+}
+
 func Type(s *scanner.Scanner) string {
 	tok := Text(s)
 	if tok == "tableau_de" {
 		return tok + " " + Type(s)
+	} else {
+		return tok
+	}
+}
+
+// 'x' or 'tab[5]'
+func LValue(s *scanner.Scanner) string {
+	tok := Text(s)
+	if Peek(s) == "[" {
+		Text(s) // consume '['
+		inside := LValue(s)
+		Must(s, "]")
+		return fmt.Sprintf("%v[%v]", tok, inside)
 	} else {
 		return tok
 	}
