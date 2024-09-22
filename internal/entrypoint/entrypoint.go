@@ -1,9 +1,9 @@
 package entrypoint
 
 import (
+	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/transpiler"
 	"flag"
-	"io"
 	"os"
 	"strings"
 	"text/scanner"
@@ -19,15 +19,15 @@ func readFileToString(path string) string {
 	return string(src)
 }
 
-func handleOutput(outputArg string) io.WriteCloser {
+func handleOutput(outputArg string) langoutput.T {
 	if outputArg == "-" {
-		return os.Stdout
+		return langoutput.NewWriteCloser(os.Stdout)
 	} else {
 		output, err := os.Create(outputArg)
 		if err != nil {
 			panic("Error creating output file: " + err.Error())
 		}
-		return output
+		return langoutput.NewWriteCloser(output)
 	}
 }
 

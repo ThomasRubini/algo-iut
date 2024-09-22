@@ -1,12 +1,12 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/transpiler/scanutils"
-	"io"
 	"text/scanner"
 )
 
-func doProcedureHeader(s *scanner.Scanner, output io.WriteCloser) {
+func doProcedureHeader(s *scanner.Scanner, output langoutput.T) {
 	// get function name
 	functionName := scanutils.Text(s)
 
@@ -18,7 +18,7 @@ func doProcedureHeader(s *scanner.Scanner, output io.WriteCloser) {
 	writeFunctionOrProcedureHeader(functionName, args, "void", output)
 }
 
-func doProcedure(s *scanner.Scanner, output io.WriteCloser, src string) {
+func doProcedure(s *scanner.Scanner, output langoutput.T, src string) {
 	doProcedureHeader(s, output)
 	doBody(s, output, src)
 }

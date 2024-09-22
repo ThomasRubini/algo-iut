@@ -1,12 +1,12 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/langoutput"
 	"fmt"
-	"io"
 	"text/scanner"
 )
 
-func DoRoot(s *scanner.Scanner, output io.WriteCloser, src string) {
+func DoRoot(s *scanner.Scanner, output langoutput.T, src string) {
 	// first scan
 	s.Scan()
 

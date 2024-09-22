@@ -1,10 +1,10 @@
 package loops
 
 import (
-	"io"
+	"algo-iut-1/internal/langoutput"
 	"text/scanner"
 )
 
-func DoInfiniteLoop(s *scanner.Scanner, output io.WriteCloser) {
-	output.Write([]byte("while(true) {"))
+func DoInfiniteLoop(s *scanner.Scanner, output langoutput.T) {
+	output.Write("while(true) {")
 }

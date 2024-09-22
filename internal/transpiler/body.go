@@ -1,44 +1,44 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/tabanalyser"
 	"algo-iut-1/internal/transpiler/loops"
 	"algo-iut-1/internal/transpiler/scanutils"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
-	"io"
 	"os"
 	"strings"
 	"text/scanner"
 )
 
-func doDeclare(s *scanner.Scanner, output io.WriteCloser) {
+func doDeclare(s *scanner.Scanner, output langoutput.T) {
 	varName := scanutils.Text(s)
 
 	scanutils.Must(s, ":")
 
 	varType, tabLength := translate.TypeMaybeSize(scanutils.UntilEOL(s))
 	if tabLength == nil {
-		output.Write([]byte(fmt.Sprintf("%v %v;", varType, varName)))
+		output.Write(fmt.Sprintf("%v %v;", varType, varName))
 	} else {
-		output.Write([]byte(fmt.Sprintf("%v %v(%v);", varType, varName, *tabLength)))
+		output.Write(fmt.Sprintf("%v %v(%v);", varType, varName, *tabLength))
 	}
 }
 
 // line that starts with an identifier. Identifier is already scanned as `id`
-func doLValueStart(s *scanner.Scanner, output io.WriteCloser) {
+func doLValueStart(s *scanner.Scanner, output langoutput.T) {
 	lval := scanutils.LValue(s)
 
 	scanutils.Must(s, "<")
 	scanutils.Must(s, "-")
 
 	value := scanutils.UntilEOL(s)
-	output.Write([]byte(fmt.Sprintf("%s = %s;", lval, value)))
+	output.Writef("%s = %s;", lval, value)
 }
 
-func doReturn(s *scanner.Scanner, output io.WriteCloser) {
+func doReturn(s *scanner.Scanner, output langoutput.T) {
 	value := scanutils.UntilEOL(s)
-	output.Write([]byte(fmt.Sprintf("return %s;", value)))
+	output.Writef("return %s;", value)
 }
 
 func showError(s *scanner.Scanner, src string, errStr interface{}) {
@@ -52,7 +52,7 @@ func showError(s *scanner.Scanner, src string, errStr interface{}) {
 }
 
 // scan a function/procedure body. Returns when encountering "fin"
-func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
+func doBody(s *scanner.Scanner, output langoutput.T, src string) {
 	tabsPrefix := tabanalyser.Do(src)
 	for {
 		if !doLine(s, output, tabsPrefix, src) {
@@ -61,7 +61,7 @@ func doBody(s *scanner.Scanner, output io.WriteCloser, src string) {
 	}
 }
 
-func doLine(s *scanner.Scanner, output io.WriteCloser, tabsPrefix []string, src string) bool {
+func doLine(s *scanner.Scanner, output langoutput.T, tabsPrefix []string, src string) bool {
 	defer func() {
 		if r := recover(); r != nil {
 			showError(s, src, r)
@@ -71,7 +71,7 @@ func doLine(s *scanner.Scanner, output io.WriteCloser, tabsPrefix []string, src 
 
 	// write tabs/space prefix
 	prefix := tabsPrefix[s.Pos().Line-1]
-	output.Write([]byte(prefix))
+	output.Write(prefix)
 
 	tok := s.TokenText()
 	switch tok {
@@ -88,7 +88,7 @@ func doLine(s *scanner.Scanner, output io.WriteCloser, tabsPrefix []string, src 
 		loops.DoInfiniteLoop(s, output)
 	case "ffaire":
 		s.Scan()
-		output.Write([]byte("}"))
+		output.Write("}")
 	// others
 	case "declarer":
 		s.Scan()
@@ -98,12 +98,12 @@ func doLine(s *scanner.Scanner, output io.WriteCloser, tabsPrefix []string, src 
 		doReturn(s, output)
 	case "fin":
 		s.Scan()
-		output.Write([]byte("}\n"))
+		output.Write("}\n")
 		return false
 	default:
 		doLValueStart(s, output)
 	}
-	output.Write([]byte("\n"))
+	output.Write("\n")
 
 	return true
 }

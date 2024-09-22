@@ -1,10 +1,10 @@
 package transpiler
 
 import (
+	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/transpiler/scanutils"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
-	"io"
 	"slices"
 	"text/scanner"
 )
@@ -62,14 +62,14 @@ func doFunctionOrProcedureArgs(s *scanner.Scanner) []typedVar {
 
 }
 
-func writeFunctionOrProcedureHeader(functionName string, args []typedVar, retType string, output io.WriteCloser) {
+func writeFunctionOrProcedureHeader(functionName string, args []typedVar, retType string, output langoutput.T) {
 	// write
-	output.Write([]byte(fmt.Sprintf("%s %s(", retType, functionName)))
+	output.Writef("%s %s(", retType, functionName)
 	for i, arg := range args {
-		output.Write([]byte(fmt.Sprintf("%s %s", arg.varType, arg.varName)))
+		output.Write(fmt.Sprintf("%s %s", arg.varType, arg.varName))
 		if i < len(args)-1 {
-			output.Write([]byte(", "))
+			output.Write(", ")
 		}
 	}
-	output.Write([]byte(") {\n"))
+	output.Write(") {\n")
 }
