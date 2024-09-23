@@ -1,9 +1,7 @@
-package scanutils
+package scan
 
 import (
 	"algo-iut-1/internal/ref"
-	"algo-iut-1/internal/utils"
-	"text/scanner"
 )
 
 const (
@@ -11,61 +9,61 @@ const (
 	ExprNextOperator = iota
 )
 
-func tryGetOperator(s *scanner.Scanner) *string {
+func tryGetOperator(s Scanner) *string {
 	var simpleOperators = "+-*/"
 	for _, c := range simpleOperators {
-		if Match(s, string(c)) {
+		if s.Match(string(c)) {
 			return ref.String(string(c))
 		}
 	}
 
-	if Match(s, "=") {
-		Must(s, "=")
+	if s.Match("=") {
+		s.Must("=")
 		return ref.String("==")
 	}
-	if Match(s, "!") {
-		Must(s, "=")
+	if s.Match("!") {
+		s.Must("=")
 		return ref.String("!=")
 	}
-	if Match(s, ">") {
-		Match(s, "=")
+	if s.Match(">") {
+		s.Match("=")
 		return ref.String(">=")
 	}
-	if Match(s, "<") {
-		Match(s, "=")
+	if s.Match("<") {
+		s.Match("=")
 		return ref.String("<=")
 	}
 	return nil
 }
 
 // assume `(` is already eaten
-func function(s *scanner.Scanner) []string {
+func function(s Scanner) []string {
 	tokens := make([]string, 0)
 
 	// handle empty params
-	if Match(s, ")") {
+	if s.Match(")") {
 		return tokens
 	}
 
 	for {
-		varName := Expr(s)
+		varName := s.Expr()
 		tokens = append(tokens, varName...)
 
-		if Match(s, ")") {
+		if s.Match(")") {
 			return tokens
-		} else if Match(s, ",") {
+		} else if s.Match(",") {
 			tokens = append(tokens, ",")
 		} else {
-			utils.PanicInvalidToken(s, "expected ',' or ')'")
+			s.InvalidToken("expected ',' or ')'")
 		}
 	}
 }
 
-func TextOrFunction(s *scanner.Scanner) []string {
-	id := Text(s)
+func TextOrFunction(s Scanner) []string {
+	id := s.Text()
 
 	// check if its a function
-	if Match(s, "(") {
+	if s.Match("(") {
 		l := make([]string, 0)
 		l = append(l, id)
 		l = append(l, "(")
@@ -77,7 +75,7 @@ func TextOrFunction(s *scanner.Scanner) []string {
 	}
 }
 
-func Expr(s *scanner.Scanner) []string {
+func (s *impl) Expr() []string {
 	tokens := make([]string, 0)
 
 	tokens = append(tokens, TextOrFunction(s)...)

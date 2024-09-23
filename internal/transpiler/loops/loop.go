@@ -2,9 +2,9 @@ package loops
 
 import (
 	"algo-iut-1/internal/langoutput"
-	"text/scanner"
+	"algo-iut-1/internal/scan"
 )
 
-func DoInfiniteLoop(s *scanner.Scanner, output langoutput.T) {
+func DoInfiniteLoop(s scan.Scanner, output langoutput.T) {
 	output.Write("while(true) {")
 }

@@ -1,19 +1,17 @@
 package transpiler
 
-import (
-	"text/scanner"
-)
+import "algo-iut-1/internal/scan"
 
-func scanType(s *scanner.Scanner) string {
+func scanType(s scan.Scanner) string {
 	tab_type := ""
 
 	for {
-		if s.TokenText() == "tableau_de" {
-			tab_type += s.TokenText() + " "
-			s.Scan()
+		if s.Peek() == "tableau_de" {
+			tab_type += s.Peek() + " "
+			s.Advance()
 		} else {
-			defer s.Scan()
-			return tab_type + s.TokenText()
+			defer s.Advance()
+			return tab_type + s.Peek()
 		}
 	}
 }

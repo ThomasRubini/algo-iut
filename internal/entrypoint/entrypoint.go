@@ -2,11 +2,10 @@ package entrypoint
 
 import (
 	"algo-iut-1/internal/langoutput"
+	"algo-iut-1/internal/scan"
 	"algo-iut-1/internal/transpiler"
 	"flag"
 	"os"
-	"strings"
-	"text/scanner"
 )
 
 func readFileToString(path string) string {
@@ -47,7 +46,6 @@ func Main() {
 	output := handleOutput(*outputArg)
 	defer output.Close()
 
-	var s scanner.Scanner
-	s.Init(strings.NewReader(src))
-	transpiler.DoRoot(&s, output, src)
+	s := scan.New(src)
+	transpiler.DoRoot(s, output, src)
 }

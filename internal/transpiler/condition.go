@@ -2,16 +2,15 @@ package transpiler
 
 import (
 	"algo-iut-1/internal/langoutput"
-	"algo-iut-1/internal/transpiler/scanutils"
+	"algo-iut-1/internal/scan"
 	"fmt"
 	"strings"
-	"text/scanner"
 )
 
-func doCondition(s *scanner.Scanner, output langoutput.T) {
-	scanutils.Must(s, "(")
-	condition := scanutils.Expr(s)
-	scanutils.Must(s, ")")
+func doCondition(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	condition := s.Expr()
+	s.Must(")")
 
 	output.Write(fmt.Sprintf("if (%v) {", strings.Join(condition, " ")))
 }

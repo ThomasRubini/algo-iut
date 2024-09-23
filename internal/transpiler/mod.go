@@ -2,17 +2,14 @@ package transpiler
 
 import (
 	"algo-iut-1/internal/langoutput"
+	"algo-iut-1/internal/scan"
 	"fmt"
-	"text/scanner"
 )
 
-func DoRoot(s *scanner.Scanner, output langoutput.T, src string) {
-	// first scan
-	s.Scan()
-
-	for s.Peek() != scanner.EOF {
-		tok := s.TokenText()
-		s.Scan()
+func DoRoot(s scan.Scanner, output langoutput.T, src string) {
+	for s.HasMore() {
+		tok := s.Peek()
+		s.Advance()
 		switch tok {
 		case "fonction":
 			doFunction(s, output, src)

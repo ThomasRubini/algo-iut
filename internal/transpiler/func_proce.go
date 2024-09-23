@@ -2,11 +2,10 @@ package transpiler
 
 import (
 	"algo-iut-1/internal/langoutput"
-	"algo-iut-1/internal/transpiler/scanutils"
+	"algo-iut-1/internal/scan"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"slices"
-	"text/scanner"
 )
 
 type typedVar struct {
@@ -15,27 +14,27 @@ type typedVar struct {
 	ref     bool
 }
 
-func doFunctionOrProcedureArgs(s *scanner.Scanner) []typedVar {
-	scanutils.Must(s, "(")
+func doFunctionOrProcedureArgs(s scan.Scanner) []typedVar {
+	s.Must("(")
 
 	args := make([]typedVar, 0)
 
 	// handle empty args
-	if scanutils.Match(s, ")") {
+	if s.Match(")") {
 		return args
 	}
 
 	for {
 		// get var name
-		varName := scanutils.Text(s)
+		varName := s.Text()
 
-		scanutils.Must(s, ":")
+		s.Must(":")
 
 		// check arg type
 		var needRef bool
-		argType := s.TokenText()
+		argType := s.Peek()
 		if slices.Contains([]string{"in", "out"}, argType) {
-			s.Scan()
+			s.Advance()
 			// idk if there is a real difference between them in generated C++
 			needRef = argType == "out"
 		} else {
@@ -49,14 +48,14 @@ func doFunctionOrProcedureArgs(s *scanner.Scanner) []typedVar {
 		args = append(args, typedVar{varType, varName, needRef})
 
 		// check for end/next arg
-		if s.TokenText() == ")" {
-			s.Scan()
+		if s.Peek() == ")" {
+			s.Advance()
 			return args
-		} else if s.TokenText() == "," {
-			s.Scan()
+		} else if s.Peek() == "," {
+			s.Advance()
 			continue
 		} else {
-			panic(fmt.Sprintf("expected , or ), got %s", s.TokenText()))
+			panic(fmt.Sprintf("expected , or ), got %s", s.Peek()))
 		}
 	}
 
