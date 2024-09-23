@@ -80,6 +80,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 	case "si":
 		s.Advance()
 		doCondition(s, output)
+	case "fsi":
+		s.Advance()
+		output.Write("}")
 	// loops
 	case "pour":
 		s.Advance()
@@ -87,7 +90,16 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 	case "boucle":
 		s.Advance()
 		loops.DoInfiniteLoop(s, output)
+	case "tant_que":
+		s.Advance()
+		loops.DoWhile(s, output)
+	case "sortie":
+		s.Advance()
+		loops.DoBreak(s, output)
 	case "ffaire":
+		s.Advance()
+		output.Write("}")
+	case "fboucle":
 		s.Advance()
 		output.Write("}")
 	// others

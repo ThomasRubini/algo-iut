@@ -8,3 +8,15 @@ import (
 func DoInfiniteLoop(s scan.Scanner, output langoutput.T) {
 	output.Write("while(true) {")
 }
+
+func DoBreak(s scan.Scanner, output langoutput.T) {
+	s.Must(";")
+	output.Write("break;")
+}
+
+func DoWhile(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	cond := s.Expr()
+	s.Must(")")
+	output.Writef("while(%v) {", cond)
+}
