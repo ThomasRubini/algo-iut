@@ -18,5 +18,6 @@ func DoWhile(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
 	cond := s.Expr()
 	s.Must(")")
+	s.Must("faire")
 	output.Writef("while(%v) {", cond)
 }
