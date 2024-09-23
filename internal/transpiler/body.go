@@ -66,6 +66,13 @@ func doReturn(s scan.Scanner, output langoutput.T) {
 	output.Writef("return %s;", value)
 }
 
+func doAfficher(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	value := translate.Expr(s.Expr())
+	s.Must(")")
+	output.Writef("std::cout << %s << std::endl;", value)
+}
+
 func showError(s scan.Scanner, src string, errStr interface{}) {
 	lines := strings.Split(src, "\n")
 	line := lines[s.Pos().Line-1]
@@ -127,6 +134,10 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 	case "fboucle":
 		s.Advance()
 		output.Write("}")
+	// afficher special case
+	case "afficher":
+		s.Advance()
+		doAfficher(s, output)
 	// others
 	case "declarer":
 		s.Advance()

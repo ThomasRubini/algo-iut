@@ -6,6 +6,7 @@ import (
 )
 
 func Do(s scan.Scanner, output langoutput.T, src string) {
+	output.Write("#include <iostream>\n")
 	output.Write("#include <vector>\n")
 	doRoot(s, output, src)
 }
