@@ -129,5 +129,3 @@ func (s *impl) Expr() scanexpr.Comp {
 		}
 	}
 }
-
-
