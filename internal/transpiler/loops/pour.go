@@ -3,7 +3,7 @@ package loops
 import (
 	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/scan"
-	"strings"
+	"algo-iut-1/internal/transpiler/translate"
 )
 
 func DoPourLoop(s scan.Scanner, output langoutput.T) {
@@ -21,11 +21,11 @@ func DoPourLoop(s scan.Scanner, output langoutput.T) {
 	output.Write("for(int ")
 	output.Write(varName)
 	output.Write(" = ")
-	output.Write(strings.Join(min, " "))
+	output.Write(translate.Expr(min))
 	output.Write("; ")
 	output.Write(varName)
 	output.Write(" < ")
-	output.Write(strings.Join(max, " "))
+	output.Write(translate.Expr(max))
 	output.Write("; ")
 	output.Write(varName)
 	output.Write("++) {")

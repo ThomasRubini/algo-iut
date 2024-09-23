@@ -2,6 +2,7 @@ package scan
 
 import (
 	"algo-iut-1/internal/ref"
+	"algo-iut-1/internal/scan/scanexpr"
 )
 
 const (
@@ -43,22 +44,24 @@ func tryGetOperator(s Scanner) *string {
 }
 
 // assume `(` is already eaten
-func function(s Scanner) []string {
-	tokens := make([]string, 0)
+func function(s Scanner, name string) scanexpr.CompFuncImpl {
+	fun := scanexpr.CompFuncImpl{
+		Name: name,
+		Args: make([]scanexpr.Comp, 0),
+	}
 
 	// handle empty params
 	if s.Match(")") {
-		return tokens
+		return fun
 	}
 
 	for {
-		varName := s.Expr()
-		tokens = append(tokens, varName...)
+		arg := s.Expr()
+		fun.Args = append(fun.Args, arg)
 
 		if s.Match(")") {
-			return tokens
+			return fun
 		} else if s.Match(",") {
-			tokens = append(tokens, ",")
 		} else {
 			s.InvalidToken("expected ',' or ')'")
 		}
@@ -66,35 +69,33 @@ func function(s Scanner) []string {
 }
 
 // variable, array or function
-func varOrArrOrFun(s Scanner) []string {
+func varOrArrOrFun(s Scanner) scanexpr.Comp {
 	id := s.Text()
 
 	// check if its a function
 	if s.Match("(") {
-		l := make([]string, 0)
-		l = append(l, id)
-		l = append(l, "(")
-		l = append(l, function(s)...)
-		l = append(l, ")")
-		return l
+		return function(s, id)
 
 	} else if s.Match("[") {
-		l := make([]string, 0)
-		l = append(l, id)
-		l = append(l, "[")
-		l = append(l, s.Expr()...)
-		l = append(l, "]")
+		index := s.Expr()
 		s.Must("]")
-		return l
+		return scanexpr.CompArrImpl{
+			Name:  id,
+			Index: index,
+		}
 	} else {
-		return []string{id}
+		return scanexpr.CompVarImpl{
+			Name: id,
+		}
 	}
 }
 
-func (s *impl) Expr() []string {
-	tokens := make([]string, 0)
+func (s *impl) Expr() scanexpr.Comp {
+	e := scanexpr.CompMergeImpl{
+		Comps: make([]scanexpr.Comp, 0),
+	}
 
-	tokens = append(tokens, varOrArrOrFun(s)...)
+	e.Comps = append(e.Comps, varOrArrOrFun(s))
 
 	mode := ExprNextOperator
 
@@ -105,14 +106,16 @@ func (s *impl) Expr() []string {
 			if op != nil {
 				panic("2 operators detected")
 			} else {
-				tokens = append(tokens, varOrArrOrFun(s)...)
+				e.Comps = append(e.Comps, varOrArrOrFun(s))
 			}
 			mode = ExprNextOperator
 		} else if mode == ExprNextOperator { // if it expects an operator
 			if op != nil {
-				tokens = append(tokens, *op)
+				e.Comps = append(e.Comps, scanexpr.CompOpImpl{
+					Op: *op,
+				})
 			} else {
-				return tokens
+				return e
 			}
 			mode = ExprNextId
 		} else {

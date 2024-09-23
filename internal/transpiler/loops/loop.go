@@ -3,7 +3,7 @@ package loops
 import (
 	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/scan"
-	"strings"
+	"algo-iut-1/internal/transpiler/translate"
 )
 
 func DoInfiniteLoop(s scan.Scanner, output langoutput.T) {
@@ -17,8 +17,8 @@ func DoBreak(s scan.Scanner, output langoutput.T) {
 
 func DoWhile(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
-	cond := s.Expr()
+	cond := translate.Expr(s.Expr())
 	s.Must(")")
 	s.Must("faire")
-	output.Writef("while(%v) {", strings.Join(cond, " "))
+	output.Writef("while(%v) {", cond)
 }

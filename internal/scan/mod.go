@@ -1,6 +1,7 @@
 package scan
 
 import (
+	"algo-iut-1/internal/scan/scanexpr"
 	"fmt"
 	"strings"
 	"text/scanner"
@@ -17,7 +18,7 @@ type Scanner interface {
 	Text() string
 	Number() int
 	LValue() string
-	Expr() []string
+	Expr() scanexpr.Comp
 
 	InvalidToken(string)
 	Pos() scanner.Position
