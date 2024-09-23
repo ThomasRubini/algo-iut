@@ -15,6 +15,9 @@ func DoRoot(s scan.Scanner, output langoutput.T, src string) {
 		case "procedure":
 			s.Advance()
 			doProcedure(s, output, src)
+		case "algorithme":
+			s.Advance()
+			doAlgorithme(s, output, src)
 		default:
 			s.InvalidToken("")
 		}
