@@ -38,3 +38,7 @@ func TestEqual(t *testing.T) {
 	s := New("1 ==1")
 	assert.Equal(t, []string{"1", "==", "1"}, s.Expr())
 }
+func TestTextOperator(t *testing.T) {
+	s := New("1 ne_vaut_pas 1")
+	assert.Equal(t, []string{"1", "ne_vaut_pas", "1"}, s.Expr())
+}

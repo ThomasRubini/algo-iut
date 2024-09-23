@@ -29,9 +29,15 @@ func tryGetOperator(s Scanner) *string {
 		s.Match("=")
 		return ref.String(">=")
 	}
+
 	if s.Match("<") {
 		s.Match("=")
 		return ref.String("<=")
+	}
+
+	// fully-text operators
+	if s.Match("ne_vaut_pas") {
+		return ref.String("ne_vaut_pas")
 	}
 	return nil
 }
