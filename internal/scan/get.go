@@ -25,6 +25,10 @@ var keywords = []string{
 	// loops
 	"tant_que", "pour", "boucle", "fboucle",
 	"faire", "ffaire", "sortie",
+	// function stuff
+	"fonction", "procedure", "renvoie",
+	// others
+	"debut","fin",
 }
 
 func (s *impl) LValue() string {
