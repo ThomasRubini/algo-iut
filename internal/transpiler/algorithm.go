@@ -11,5 +11,5 @@ func doAlgorithme(s scan.Scanner, output langoutput.T, src string) {
 
 	output.Write("int main() {")
 	doBody(s, output, src)
-	output.Write("}")
+	// } is written by doBody()
 }
