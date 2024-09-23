@@ -33,3 +33,8 @@ func TestArray(t *testing.T) {
 	s := New("arr[1]")
 	assert.Equal(t, []string{"arr", "[", "1", "]"}, s.Expr())
 }
+
+func TestEqual(t *testing.T) {
+	s := New("1 ==1")
+	assert.Equal(t, []string{"1", "==", "1"}, s.Expr())
+}
