@@ -3,6 +3,7 @@ package loops
 import (
 	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/scan"
+	"strings"
 )
 
 func DoInfiniteLoop(s scan.Scanner, output langoutput.T) {
@@ -19,5 +20,5 @@ func DoWhile(s scan.Scanner, output langoutput.T) {
 	cond := s.Expr()
 	s.Must(")")
 	s.Must("faire")
-	output.Writef("while(%v) {", cond)
+	output.Writef("while(%v) {", strings.Join(cond, " "))
 }
