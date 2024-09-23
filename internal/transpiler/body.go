@@ -29,11 +29,36 @@ func doDeclare(s scan.Scanner, output langoutput.T) {
 func doLValueStart(s scan.Scanner, output langoutput.T) {
 	lval := s.LValue()
 
-	s.Must("<")
-	s.Must("-")
+	if s.Match("<") { // assignation
+		s.Must("-")
 
-	value := s.UntilEOL()
-	output.Writef("%s = %s;", lval, value)
+		value := s.UntilEOL()
+		output.Writef("%s = %s;", lval, value)
+	} else if s.Match("(") { // function call
+		doFunctionCall(s, output, lval)
+	}
+}
+
+func doFunctionCall(s scan.Scanner, output langoutput.T, name string) {
+	output.Writef("%s(", name)
+
+	if s.Match(")") {
+		output.Write(");")
+		return
+	}
+
+	for {
+		arg := s.Expr()
+		output.Write(translate.Expr(arg))
+
+		if s.Match(")") {
+			s.Must(";")
+			output.Write(");")
+			break
+		}
+
+		s.Must(",")
+	}
 }
 
 func doReturn(s scan.Scanner, output langoutput.T) {
