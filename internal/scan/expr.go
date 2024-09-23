@@ -59,7 +59,8 @@ func function(s Scanner) []string {
 	}
 }
 
-func TextOrFunction(s Scanner) []string {
+// variable, array or function
+func varOrArrOrFun(s Scanner) []string {
 	id := s.Text()
 
 	// check if its a function
@@ -70,6 +71,14 @@ func TextOrFunction(s Scanner) []string {
 		l = append(l, function(s)...)
 		l = append(l, ")")
 		return l
+
+	} else if s.Match("[") {
+		l := make([]string, 0)
+		l = append(l, id)
+		l = append(l, "[")
+		l = append(l, s.Expr()...)
+		l = append(l, "]")
+		return l
 	} else {
 		return []string{id}
 	}
@@ -78,7 +87,7 @@ func TextOrFunction(s Scanner) []string {
 func (s *impl) Expr() []string {
 	tokens := make([]string, 0)
 
-	tokens = append(tokens, TextOrFunction(s)...)
+	tokens = append(tokens, varOrArrOrFun(s)...)
 
 	mode := ExprNextOperator
 
@@ -89,7 +98,7 @@ func (s *impl) Expr() []string {
 			if op != nil {
 				panic("2 operators detected")
 			} else {
-				tokens = append(tokens, TextOrFunction(s)...)
+				tokens = append(tokens, varOrArrOrFun(s)...)
 			}
 			mode = ExprNextOperator
 		} else if mode == ExprNextOperator { // if it expects an operator

@@ -28,3 +28,8 @@ func TestComplex1(t *testing.T) {
 	s := New("foo(1+5, foo2(1, foo3(4), 5))")
 	assert.Equal(t, []string{"foo", "(", "1", "+", "5", ",", "foo2", "(", "1", ",", "foo3", "(", "4", ")", ",", "5", ")", ")"}, s.Expr())
 }
+
+func TestArray(t *testing.T) {
+	s := New("arr[1]")
+	assert.Equal(t, []string{"arr", "[", "1", "]"}, s.Expr())
+}
