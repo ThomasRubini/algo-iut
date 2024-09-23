@@ -27,6 +27,8 @@ type CompArrImpl struct {
 type CompOpImpl struct {
 	Op string
 }
+
+// merge **using operators**
 type CompMergeImpl struct {
 	Comps []Comp
 }
