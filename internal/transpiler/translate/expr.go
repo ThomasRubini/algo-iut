@@ -23,8 +23,8 @@ func exprFunction(e scanexpr.CompFuncImpl) string {
 
 func Expr(e scanexpr.Comp) string {
 	switch e.Type() {
-	case scanexpr.CompVar:
-		return e.(scanexpr.CompVarImpl).Name
+	case scanexpr.CompId:
+		return e.(scanexpr.CompIdImpl).Name
 	case scanexpr.CompFunc:
 		return exprFunction(e.(scanexpr.CompFuncImpl))
 	case scanexpr.CompArr:

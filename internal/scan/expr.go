@@ -11,7 +11,7 @@ const (
 )
 
 func tryGetOperator(s Scanner) *string {
-	var simpleOperators = "+-*/"
+	simpleOperators := "+-*/"
 	for _, c := range simpleOperators {
 		if s.Match(string(c)) {
 			return ref.String(string(c))
@@ -68,8 +68,9 @@ func function(s Scanner, name string) scanexpr.CompFuncImpl {
 	}
 }
 
-// variable, array or function
-func varOrArrOrFun(s Scanner) scanexpr.Comp {
+// id, array or function
+// (id means variable or constant)
+func idOrArrOrFun(s Scanner) scanexpr.Comp {
 	id := s.Text()
 
 	// check if its a function
@@ -84,7 +85,7 @@ func varOrArrOrFun(s Scanner) scanexpr.Comp {
 			Index: index,
 		}
 	} else {
-		return scanexpr.CompVarImpl{
+		return scanexpr.CompIdImpl{
 			Name: id,
 		}
 	}
@@ -95,7 +96,7 @@ func (s *impl) Expr() scanexpr.Comp {
 		Comps: make([]scanexpr.Comp, 0),
 	}
 
-	e.Comps = append(e.Comps, varOrArrOrFun(s))
+	e.Comps = append(e.Comps, idOrArrOrFun(s))
 
 	mode := ExprNextOperator
 
@@ -106,7 +107,7 @@ func (s *impl) Expr() scanexpr.Comp {
 			if op != nil {
 				panic("2 operators detected")
 			} else {
-				e.Comps = append(e.Comps, varOrArrOrFun(s))
+				e.Comps = append(e.Comps, idOrArrOrFun(s))
 			}
 			mode = ExprNextOperator
 		} else if mode == ExprNextOperator { // if it expects an operator

@@ -1,7 +1,7 @@
 package scanexpr
 
 const (
-	CompVar   = iota
+	CompId    = iota
 	CompFunc  = iota
 	CompArr   = iota
 	CompOp    = iota
@@ -13,7 +13,7 @@ type Comp interface {
 	Type() int
 }
 
-type CompVarImpl struct {
+type CompIdImpl struct {
 	Name string
 }
 type CompFuncImpl struct {
@@ -31,8 +31,8 @@ type CompMergeImpl struct {
 	Comps []Comp
 }
 
-func (c CompVarImpl) Type() int {
-	return CompVar
+func (c CompIdImpl) Type() int {
+	return CompId
 }
 
 func (c CompFuncImpl) Type() int {
