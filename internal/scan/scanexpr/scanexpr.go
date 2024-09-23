@@ -52,3 +52,35 @@ func (c CompOpImpl) Type() int {
 func (c CompMergeImpl) Type() int {
 	return CompMerge
 }
+
+func Id(name string) Comp {
+	return CompIdImpl{
+		Name: name,
+	}
+}
+
+func Func(name string, args ...Comp) Comp {
+	return CompFuncImpl{
+		Name: name,
+		Args: args,
+	}
+}
+
+func Arr(name string, index Comp) Comp {
+	return CompArrImpl{
+		Name:  name,
+		Index: index,
+	}
+}
+
+func Op(op string) Comp {
+	return CompOpImpl{
+		Op: op,
+	}
+}
+
+func Merge(comps ...Comp) Comp {
+	return CompMergeImpl{
+		Comps: comps,
+	}
+}
