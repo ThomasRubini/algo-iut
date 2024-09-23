@@ -116,7 +116,12 @@ func (s *impl) Expr() scanexpr.Comp {
 					Op: *op,
 				})
 			} else {
-				return e
+				// return
+				if len(e.Comps) == 1 {
+					return e.Comps[0]
+				} else {
+					return e
+				}
 			}
 			mode = ExprNextId
 		} else {
@@ -124,3 +129,5 @@ func (s *impl) Expr() scanexpr.Comp {
 		}
 	}
 }
+
+
