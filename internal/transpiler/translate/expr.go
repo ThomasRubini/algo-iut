@@ -31,7 +31,7 @@ func Expr(e scanexpr.Comp) string {
 		arr := e.(scanexpr.CompArrImpl)
 		return arr.Name + "[" + Expr(arr.Index) + "]"
 	case scanexpr.CompOp:
-		return e.(scanexpr.CompOpImpl).Op
+		return Operator(e.(scanexpr.CompOpImpl).Op)
 	case scanexpr.CompMerge:
 		merge := e.(scanexpr.CompMergeImpl)
 		comps := make([]string, len(merge.Comps))
