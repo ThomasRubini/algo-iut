@@ -9,7 +9,7 @@ func doAlgorithme(s scan.Scanner, output langoutput.T, src string) {
 	s.Advance() // ignore alg name
 	s.Must("debut")
 
-	output.Write("void main() {")
+	output.Write("int main() {")
 	doBody(s, output, src)
 	output.Write("}")
 }
