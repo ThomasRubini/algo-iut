@@ -2,6 +2,7 @@ package scan
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 )
 
@@ -20,8 +21,18 @@ func (s *impl) Number() int {
 	return num
 }
 
+var keywords = []string{
+	// loops
+	"tant_que", "pour", "boucle", "fboucle",
+	"faire", "ffaire", "sortie",
+}
+
 func (s *impl) LValue() string {
 	tok := s.Text()
+	if slices.Contains(keywords, tok) {
+		s.InvalidToken("Expected lvalue, found reserved keyword")
+	}
+
 	if s.Peek() == "[" {
 		s.Text() // consume '['
 		inside := s.LValue()
