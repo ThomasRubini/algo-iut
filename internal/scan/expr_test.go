@@ -42,3 +42,8 @@ func TestTextOperator(t *testing.T) {
 	s := New("1 ne_vaut_pas 1")
 	assert.Equal(t, []string{"1", "ne_vaut_pas", "1"}, s.Expr())
 }
+
+func TestTextOperator2(t *testing.T) {
+	s := New("tab[j] ne_vaut_pas 0")
+	assert.Equal(t, []string{"tab", "[", "j", "]", "ne_vaut_pas", "0"}, s.Expr())
+}

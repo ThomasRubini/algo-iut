@@ -84,6 +84,7 @@ func varOrArrOrFun(s Scanner) []string {
 		l = append(l, "[")
 		l = append(l, s.Expr()...)
 		l = append(l, "]")
+		s.Must("]")
 		return l
 	} else {
 		return []string{id}
