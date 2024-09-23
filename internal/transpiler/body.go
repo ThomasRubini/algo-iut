@@ -55,9 +55,10 @@ func doFunctionCall(s scan.Scanner, output langoutput.T, name string) {
 			s.Must(";")
 			output.Write(");")
 			break
+		} else if s.Match(",") {
+		} else {
+			s.InvalidToken("expected ',' or ')'")
 		}
-
-		s.Must(",")
 	}
 }
 
