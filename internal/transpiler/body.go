@@ -8,6 +8,7 @@ import (
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
 	"os"
+	"runtime/debug"
 	"strings"
 )
 
@@ -64,6 +65,7 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 	defer func() {
 		if r := recover(); r != nil {
 			showError(s, src, r)
+			fmt.Println(string(debug.Stack()))
 			os.Exit(1)
 		}
 	}()
