@@ -18,5 +18,15 @@ func DoPourLoop(s scan.Scanner, output langoutput.T) {
 	s.Must(")")
 	s.Must("faire")
 
-	output.Writef("for(int %v=%v;i<%v;i++) {", varName, strings.Join(min, " "), strings.Join(max, " "))
+	output.Write("for(int ")
+	output.Write(varName)
+	output.Write(" = ")
+	output.Write(strings.Join(min, " "))
+	output.Write("; ")
+	output.Write(varName)
+	output.Write(" < ")
+	output.Write(strings.Join(max, " "))
+	output.Write("; ")
+	output.Write(varName)
+	output.Write("++) {")
 }
