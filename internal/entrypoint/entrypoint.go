@@ -47,5 +47,5 @@ func Main() {
 	defer output.Close()
 
 	s := scan.New(src)
-	transpiler.DoRoot(s, output, src)
+	transpiler.Do(s, output, src)
 }

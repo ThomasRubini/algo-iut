@@ -5,7 +5,12 @@ import (
 	"algo-iut-1/internal/scan"
 )
 
-func DoRoot(s scan.Scanner, output langoutput.T, src string) {
+func Do(s scan.Scanner, output langoutput.T, src string) {
+	output.Write("#include <vector>\n")
+	doRoot(s, output, src)
+}
+
+func doRoot(s scan.Scanner, output langoutput.T, src string) {
 	for s.HasMore() {
 		tok := s.Peek()
 		switch tok {
