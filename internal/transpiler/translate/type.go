@@ -2,24 +2,29 @@ package translate
 
 import (
 	"algo-iut-1/internal/ref"
+	"algo-iut-1/internal/scan"
+	"algo-iut-1/internal/utils"
 	"fmt"
 	"strings"
 )
 
 // translates a type into a C++ type, and returns its size.
-func TypeMaybeSize(in string) (string, *string) {
+func TypeMaybeSize(s scan.Scanner) (string, *string) {
 	// TODO this is a hack. Doesn't support nested tableaux
-	parts := strings.Split(in, " ")
-	if parts[0] == "tableau_de" {
-		if len(parts) == 2 {
-			return fmt.Sprintf("std::vector<%s>", Type(parts[1])), ref.String("0")
+	if s.Match("tableau_de") {
+		tok := s.Peek()
+		typ1, err := utils.Catch(func() string {
+			return Type(tok)
+		})
+		if err != nil { // if not a type, then it must be a size
+			size := s.Expr()
+			typ2, _ := TypeMaybeSize(s)
+			return fmt.Sprintf("std::vector<%s>", typ2), ref.String(Expr(size))
 		} else {
-			size := strings.Join(parts[1:len(parts)-1], " ")
-			typeName := parts[len(parts)-1]
-			return fmt.Sprintf("std::vector<%s>", Type(typeName)), &size
+			return fmt.Sprintf("std::vector<%s>", typ1), ref.String("0")
 		}
 	} else {
-		return Type(in), nil
+		return Type(s.Text()), nil
 	}
 }
 

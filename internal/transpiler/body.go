@@ -17,12 +17,22 @@ func doDeclare(s scan.Scanner, output langoutput.T) {
 
 	s.Must(":")
 
-	varType, tabLength := translate.TypeMaybeSize(s.UntilEOL())
+	varType, tabLength := translate.TypeMaybeSize(s)
 	if tabLength == nil {
-		output.Write(fmt.Sprintf("%v %v;", varType, varName))
+		output.Write(fmt.Sprintf("%v %v", varType, varName))
 	} else {
-		output.Write(fmt.Sprintf("%v %v(%v);", varType, varName, *tabLength))
+		output.Write(fmt.Sprintf("%v %v(%v)", varType, varName, *tabLength))
 	}
+
+	// check if doing assignation at the same time
+	if s.Match("<") {
+		s.Must("-")
+		value := s.UntilEOL() // eats the ';'
+		output.Writef(" = %s;", value)
+	} else {
+		s.Must(";")
+	}
+	output.Write(";")
 }
 
 // line that starts with an identifier. Identifier is already scanned as `id`
