@@ -23,7 +23,7 @@ func (s *impl) Number() int {
 
 var keywords = []string{
 	// loops
-	"tant_que", "pour", "boucle", "fboucle",
+	"tant_que", "pour", "jusqua", "boucle", "fboucle",
 	"faire", "ffaire", "sortie",
 	// function stuff
 	"fonction", "procedure", "renvoie",

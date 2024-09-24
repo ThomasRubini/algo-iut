@@ -22,3 +22,19 @@ func DoWhile(s scan.Scanner, output langoutput.T) {
 	s.Must("faire")
 	output.Writef("while(%v) {", cond)
 }
+
+func DoUntil(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	cond := translate.Expr(s.Expr())
+	s.Must(")")
+
+	output.Writef("while(!(%v))", cond)
+	if s.Match("faire") { // start of a loop, or end of a loop ?
+		output.Write("{")
+	}
+
+}
+
+func DoRepeatUntil(s scan.Scanner, output langoutput.T) {
+	output.Write("do {")
+}

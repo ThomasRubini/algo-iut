@@ -131,12 +131,18 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 	case "pour":
 		s.Advance()
 		loops.DoPourLoop(s, output)
-	case "boucle":
-		s.Advance()
-		loops.DoInfiniteLoop(s, output)
 	case "tant_que":
 		s.Advance()
 		loops.DoWhile(s, output)
+	case "jusqua":
+		s.Advance()
+		loops.DoUntil(s, output)
+	case "repeat":
+		s.Advance()
+		loops.DoRepeatUntil(s, output)
+	case "boucle":
+		s.Advance()
+		loops.DoInfiniteLoop(s, output)
 	case "sortie":
 		s.Advance()
 		loops.DoBreak(s, output)
