@@ -40,6 +40,10 @@ func tryGetOperator(s Scanner) *string {
 	if s.Match("ne_vaut_pas") {
 		return ref.String("ne_vaut_pas")
 	}
+
+	if s.Match("vaut") {
+		return ref.String("vaut")
+	}
 	return nil
 }
 
