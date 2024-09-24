@@ -61,8 +61,10 @@ func (s *impl) Match(str string) bool {
 }
 
 func (s *impl) Must(expected string) {
-	got := s.Text()
-	if got != expected {
+	got := s.Peek()
+	if got == expected {
+		s.Advance()
+	} else {
 		panic(fmt.Sprintf("expected '%s', got '%s' (position: %v)", expected, got, s.Pos()))
 	}
 }

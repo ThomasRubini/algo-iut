@@ -90,7 +90,8 @@ func showError(s scan.Scanner, src string, errStr interface{}) {
 
 	fmt.Printf("Transpiler error: line %v\n", s.Pos().Line)
 	fmt.Println(line)
-	fmt.Println(strings.Repeat(" ", s.Pos().Column-1) + "^")
+	fmt.Print(strings.Repeat(" ", s.Pos().Column+1) + "^")
+	fmt.Println(strings.Repeat("-", len(s.Peek())-1))
 	fmt.Println(errStr)
 }
 
