@@ -41,6 +41,8 @@ func doLValueStart(s scan.Scanner, output langoutput.T) {
 		output.Writef("%s = %s;", lval, value)
 	} else if s.Match("(") { // function call
 		doFunctionCall(s, output, lval)
+	} else {
+		s.InvalidToken("expected '<-' or '('")
 	}
 }
 
