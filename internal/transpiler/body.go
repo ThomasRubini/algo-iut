@@ -80,6 +80,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 	case "tant_que":
 		s.Advance()
 		loops.DoWhile(s, output)
+	case "repeter":
+		s.Advance()
+		loops.DoRepeat(s, output)
 	case "jusqua":
 		s.Advance()
 		loops.DoUntil(s, output)
