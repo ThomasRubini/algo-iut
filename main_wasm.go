@@ -64,7 +64,7 @@ func transpileJs(this js.Value, vals []js.Value) any {
 	input := vals[0].String()
 
 	output, logs := transpile(input)
-	return []string{output, logs}
+	return []interface{}{output, logs}
 }
 
 func main() {
