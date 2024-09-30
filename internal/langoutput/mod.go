@@ -1,3 +1,4 @@
+// this package implement the output interface of our transpiler
 package langoutput
 
 import (
