@@ -8,6 +8,7 @@ import (
 	"algo-iut-1/internal/transpiler"
 	"algo-iut-1/internal/utils/nopwritecloser"
 	"bytes"
+	"fmt"
 	"io"
 	"os"
 	"syscall/js"
@@ -68,6 +69,7 @@ func transpileJs(this js.Value, vals []js.Value) any {
 }
 
 func main() {
+	fmt.Println("Go program started !")
 	js.Global().Set("transpile", js.FuncOf(transpileJs))
 	Wait()
 }
