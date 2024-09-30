@@ -5,20 +5,29 @@ import (
 	"algo-iut-1/internal/scan"
 	"algo-iut-1/internal/transpiler"
 	"flag"
+	"io"
 	"os"
 )
 
-func readFileToString(path string) string {
+func readInput(path string) string {
 
-	src, err := os.ReadFile(path)
-	if err != nil {
-		panic("Error reading file: " + err.Error())
+	if path == "-" {
+		// Read from stdin
+		src, err := io.ReadAll(os.Stdin)
+		if err != nil {
+			panic("Error reading from stdin: " + err.Error())
+		}
+		return string(src)
+	} else {
+		src, err := os.ReadFile(path)
+		if err != nil {
+			panic("Error reading file: " + err.Error())
+		}
+		return string(src)
 	}
-
-	return string(src)
 }
 
-func handleOutput(outputArg string) langoutput.T {
+func setupOutput(outputArg string) langoutput.T {
 	if outputArg == "-" {
 		return langoutput.NewWriteCloser(os.Stdout)
 	} else {
@@ -42,8 +51,8 @@ func Main() {
 	outputArg := stringFlag("output", "output.txt", "output file. Use '-' for stdout")
 	flag.Parse()
 
-	src := readFileToString(*inputArg)
-	output := handleOutput(*outputArg)
+	src := readInput(*inputArg)
+	output := setupOutput(*outputArg)
 	defer output.Close()
 
 	s := scan.New(src)
