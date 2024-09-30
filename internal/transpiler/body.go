@@ -21,6 +21,7 @@ func doAfficher(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
 	value := translate.Expr(s.Expr())
 	s.Must(")")
+	s.Must(";")
 	output.Writef("std::cout << %s << std::endl;", value)
 }
 
