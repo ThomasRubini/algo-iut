@@ -13,9 +13,6 @@ COPY main_wasm.go .
 # Compile
 RUN GOOS=js GOARCH=wasm go build -o main.wasm .
 
-RUN go env GOROOT
-RUN go env GOROOT
-
 # Raw web content
 FROM scratch AS raw
 COPY --from=build /build/main.wasm ./
