@@ -8,7 +8,7 @@ RUN go mod download
 
 # Copy code
 COPY internal ./internal
-COPY main.go .
+COPY main_wasm.go .
 
 # Compile
 RUN GOOS=js GOARCH=wasm go build -o main.wasm .
