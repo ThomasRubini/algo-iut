@@ -12,30 +12,33 @@ license that can be found in the LICENSE file.
   </head>
 
   <body>
+    <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
     <script src="wasm_exec.js"></script>
     <script src="script.js"></script>
 
     <script>
-      initWasm();
     </script>
 
-    <textarea id="left" placeholder="Type here..."></textarea>
-    <textarea id="right" placeholder="Translation will appear here..." readonly></textarea>
+    <div id="leftEditorTag" class="editor"></div>
+    <div id="rightEditorTag" class="editor"></div>
 
-    <script>
+    <script type="module">
+      initWasm();
+      await initMonaco();
+
       let typingTimer;
       const transpileDelay = 200; // 0.5s
-        document.getElementById('left').addEventListener('input', () => {
+      leftEditorInst.getModel().onDidChangeContent((event) => {
 
-          clearTimeout(typingTimer); // Clear previous timer
-          typingTimer = setTimeout(() => {
-            const inputText = document.getElementById('left').value;
-            
-            let [outputText, logs] = transpile(inputText)
+        clearTimeout(typingTimer); // Clear previous timer
+        typingTimer = setTimeout(() => {
+          const inputText = leftEditorInst.getValue();
+          
+          let [outputText, logs] = transpile(inputText)
 
-            document.getElementById('right').value = outputText;
-          })
-        });
+          rightEditorInst.setValue(outputText);
+        })
+      });
     </script>
   </body>
 </html>
