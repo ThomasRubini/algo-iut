@@ -48,6 +48,7 @@ func doFunctionCall(s scan.Scanner, output langoutput.T, name string) {
 	output.Writef("%s(", name)
 
 	if s.Match(")") {
+		s.Must(";")
 		output.Write(");")
 		return
 	}
