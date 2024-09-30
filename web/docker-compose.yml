@@ -1,0 +1,9 @@
+# docker compose -f web/docker-compose.yml up --build
+services:
+  algo_iut:
+    image: algo_iut:latest
+    build:
+      context: ../
+      dockerfile: web/Dockerfile
+    ports:
+      - 8080:80
