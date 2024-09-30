@@ -20,7 +20,7 @@ RUN go env GOROOT
 FROM scratch AS raw
 COPY --from=build /build/main.wasm ./
 COPY --from=build /usr/local/go/misc/wasm/wasm_exec.js .
-COPY web/index.html ./
+COPY web/content ./
 
 # Nginx image to access web content
 FROM nginx
