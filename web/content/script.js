@@ -41,8 +41,9 @@ async function initMonaco() {
                 theme: 'vs-dark'
             });
             rightEditorInst = monaco.editor.create(document.getElementById('rightEditorTag'), {
-                language: 'javascript',
-                theme: 'vs-dark'
+                language: 'cpp',
+                theme: 'vs-dark',
+                readOnly: true
             });    
             resolve();
         });
