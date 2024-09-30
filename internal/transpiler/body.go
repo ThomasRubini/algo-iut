@@ -46,6 +46,11 @@ func doBody(s scan.Scanner, output langoutput.T, src string) {
 	}
 }
 
+func doLigneSuivante(s scan.Scanner, output langoutput.T) {
+	s.Must(";")
+	output.Write("std::cout << std::endl;")
+}
+
 func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string) bool {
 	defer func() {
 		if r := recover(); r != nil {
@@ -98,6 +103,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 		s.Advance()
 		doAfficher(s, output)
 	// others
+	case "ligne_suivante":
+		s.Advance()
+		doLigneSuivante(s, output)
 	case "declarer":
 		s.Advance()
 		doDeclare(s, output)
