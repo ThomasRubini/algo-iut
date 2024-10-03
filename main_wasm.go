@@ -43,10 +43,18 @@ func captureStdout(f func()) string {
 }
 
 func transpile(input string) (output string, logs string) {
+	defer func() {
+		if r := recover(); r != nil {
+			output = ""
+			fmt.Printf("Panicked: %v\n", r)
+		}
+	}()
+
 	scanner := scan.New(input)
 	buf := bytes.Buffer{}
 
 	stdout := captureStdout(func() {
+
 		transpiler.Do(
 			scanner,
 			langoutput.NewWriteCloser(nopwritecloser.New(&buf)),
