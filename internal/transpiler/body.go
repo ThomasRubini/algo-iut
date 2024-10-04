@@ -56,7 +56,7 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string
 		if r := recover(); r != nil {
 			showError(s, src, r)
 			fmt.Println(string(debug.Stack()))
-			os.Exit(1)
+			os.Exit(2)
 		}
 	}()
 
