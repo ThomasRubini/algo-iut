@@ -1,0 +1,40 @@
+name: Web build
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  id-token: write
+  actions: write
+
+jobs:
+
+  build_web:
+    runs-on: ubuntu-24.04
+    name: WebAssembly
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Build using docker
+      run: |
+        docker buildx build . -f web/Dockerfile --progress=plain --target raw --output out
+
+    - name: Upload artifacts
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: out/
+
+    - name: 🌍 Deploy
+      id: deployment
+      uses: actions/deploy-pages@v2
