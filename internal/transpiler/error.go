@@ -2,6 +2,7 @@ package transpiler
 
 import (
 	"algo-iut-1/internal/scan"
+	"bytes"
 	"fmt"
 	"io"
 	"strings"
@@ -27,4 +28,10 @@ func (e *Error) Show(w io.Writer) {
 	fmt.Fprintln(w, "Compiler stacktrace:")
 	fmt.Fprintln(w, e.compilerStack)
 
+}
+
+func (e *Error) Error() string {
+	buf := bytes.Buffer{}
+	e.Show(&buf)
+	return buf.String()
 }
