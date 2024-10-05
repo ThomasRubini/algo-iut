@@ -1,4 +1,4 @@
 algorithme nom
 debut
-    afficher("Hello world !");
+    afficher("Hello world !")
 fin
