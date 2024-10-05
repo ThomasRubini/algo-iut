@@ -5,6 +5,7 @@ import (
 	"algo-iut/internal/scan"
 	"algo-iut/internal/transpiler"
 	"flag"
+	"fmt"
 	"io"
 	"os"
 )
@@ -39,19 +40,22 @@ func setupOutput(outputArg string) langoutput.T {
 	}
 }
 
-func stringFlag(name, defaultValue, help string) *string {
-	var str string
-	flag.StringVar(&str, name, defaultValue, help)
-	flag.StringVar(&str, string(name[0]), defaultValue, help)
-	return &str
-}
-
 func Main() {
-	inputArg := stringFlag("input", "input.txt", "input file")
-	outputArg := stringFlag("output", "output.txt", "output file. Use '-' for stdout")
+	outputArg := flag.String("o", "output.txt", "output file. Use '-' for stdout")
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage: %s <algo file> [options]\n", os.Args[0])
+		fmt.Fprintln(os.Stderr, "Options:")
+		flag.PrintDefaults() // Print flag options
+	}
+
 	flag.Parse()
 
-	src := readInput(*inputArg)
+	if flag.NArg() != 1 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
+	src := readInput(flag.Arg(0))
 	output := setupOutput(*outputArg)
 	defer output.Close()
 
