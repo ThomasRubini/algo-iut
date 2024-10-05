@@ -1,0 +1,5 @@
+algorithme nom
+debut
+    declarer a : entier_naturel <- 5;
+    afficher(a);
+fin
