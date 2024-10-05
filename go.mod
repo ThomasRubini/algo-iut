@@ -1,4 +1,4 @@
-module algo-iut-1
+module algo-iut
 
 go 1.23.0
 

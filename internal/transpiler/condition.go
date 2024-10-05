@@ -1,9 +1,9 @@
 package transpiler
 
 import (
-	"algo-iut-1/internal/langoutput"
-	"algo-iut-1/internal/scan"
-	"algo-iut-1/internal/transpiler/translate"
+	"algo-iut/internal/langoutput"
+	"algo-iut/internal/scan"
+	"algo-iut/internal/transpiler/translate"
 	"fmt"
 )
 

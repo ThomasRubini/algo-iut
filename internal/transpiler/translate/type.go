@@ -1,9 +1,9 @@
 package translate
 
 import (
-	"algo-iut-1/internal/ref"
-	"algo-iut-1/internal/scan"
-	"algo-iut-1/internal/utils"
+	"algo-iut/internal/ref"
+	"algo-iut/internal/scan"
+	"algo-iut/internal/utils"
 	"fmt"
 	"strings"
 )

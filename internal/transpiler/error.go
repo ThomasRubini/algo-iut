@@ -1,7 +1,7 @@
 package transpiler
 
 import (
-	"algo-iut-1/internal/scan"
+	"algo-iut/internal/scan"
 	"bytes"
 	"fmt"
 	"io"

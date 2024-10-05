@@ -1,6 +1,6 @@
 package transpiler
 
-import "algo-iut-1/internal/scan"
+import "algo-iut/internal/scan"
 
 func scanType(s scan.Scanner) string {
 	tab_type := ""

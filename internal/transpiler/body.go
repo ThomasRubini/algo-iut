@@ -1,11 +1,11 @@
 package transpiler
 
 import (
-	"algo-iut-1/internal/langoutput"
-	"algo-iut-1/internal/scan"
-	"algo-iut-1/internal/tabanalyser"
-	"algo-iut-1/internal/transpiler/loops"
-	"algo-iut-1/internal/transpiler/translate"
+	"algo-iut/internal/langoutput"
+	"algo-iut/internal/scan"
+	"algo-iut/internal/tabanalyser"
+	"algo-iut/internal/transpiler/loops"
+	"algo-iut/internal/transpiler/translate"
 )
 
 func doReturn(s scan.Scanner, output langoutput.T) {

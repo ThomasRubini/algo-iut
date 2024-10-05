@@ -1,9 +1,9 @@
 package loops
 
 import (
-	"algo-iut-1/internal/langoutput"
-	"algo-iut-1/internal/scan"
-	"algo-iut-1/internal/transpiler/translate"
+	"algo-iut/internal/langoutput"
+	"algo-iut/internal/scan"
+	"algo-iut/internal/transpiler/translate"
 )
 
 func DoInfiniteLoop(s scan.Scanner, output langoutput.T) {
@@ -34,7 +34,7 @@ func DoUntil(s scan.Scanner, output langoutput.T) {
 
 	if s.Match("faire") { // start of a loop "jusqua faire"
 		output.Writef("while(!(%v)) {", cond)
-		} else { // end of a loop "repeter jusqua"
+	} else { // end of a loop "repeter jusqua"
 		output.Writef("} while(!(%v));", cond)
 	}
 

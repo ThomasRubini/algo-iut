@@ -1,7 +1,7 @@
 package scan
 
 import (
-	"algo-iut-1/internal/scan/scanexpr"
+	"algo-iut/internal/scan/scanexpr"
 	"fmt"
 	"strings"
 	"text/scanner"

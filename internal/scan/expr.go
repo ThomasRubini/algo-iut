@@ -1,8 +1,8 @@
 package scan
 
 import (
-	"algo-iut-1/internal/ref"
-	"algo-iut-1/internal/scan/scanexpr"
+	"algo-iut/internal/ref"
+	"algo-iut/internal/scan/scanexpr"
 )
 
 const (

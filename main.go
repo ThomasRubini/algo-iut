@@ -2,7 +2,7 @@
 
 package main
 
-import "algo-iut-1/internal/entrypoint"
+import "algo-iut/internal/entrypoint"
 
 func main() {
 	entrypoint.Main()
