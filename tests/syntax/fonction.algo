@@ -1,0 +1,27 @@
+fonction noArgs() renvoie reel
+debut
+    renvoie 5.0;
+fin
+
+fonction oneArg(a: in reel) renvoie reel
+debut
+    renvoie 5.0;
+fin
+
+fonction twoArg(a: in reel, b: in reel) renvoie reel
+debut
+    renvoie 5.0;
+fin
+
+fonction outArg(a: in reel, b: out reel) renvoie reel
+debut
+    renvoie 5.0;
+fin
+
+algorithme nom
+debut
+    // useless but might as well test
+    declarer aRet : reel <- noArgs();
+    declarer bRet : reel <- oneArg(5.0);
+    declarer cRet : reel <- twoArg(5.0, 5.0);
+fin
