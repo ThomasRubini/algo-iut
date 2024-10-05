@@ -11,6 +11,6 @@ debut
 			afficher ("annee  bissextile");
 		fsi
 	sinon 
-		afficher ("annee non bissextile")
+		afficher ("annee non bissextile");
 	fsi
 fin
