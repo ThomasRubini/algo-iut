@@ -9,37 +9,12 @@ import (
 	"algo-iut-1/internal/utils/nopwritecloser"
 	"bytes"
 	"fmt"
-	"io"
-	"os"
 	"syscall/js"
 )
 
 func Wait() {
 	c := make(chan struct{})
 	<-c
-}
-
-// https://stackoverflow.com/a/10476304
-func captureStdout(f func()) string {
-	old := os.Stdout // keep backup of the real stdout
-	r, w, _ := os.Pipe()
-	os.Stdout = w
-
-	outC := make(chan string)
-	// copy the output in a separate goroutine so printing can't block indefinitely
-	go func() {
-		var buf bytes.Buffer
-		io.Copy(&buf, r)
-		outC <- buf.String()
-	}()
-
-	// Call function
-	f()
-	w.Close()
-
-	// back to normal state
-	os.Stdout = old // restoring the real stdout
-	return <-outC
 }
 
 func transpile(input string) (output string, logs string, success bool) {
@@ -51,18 +26,20 @@ func transpile(input string) (output string, logs string, success bool) {
 	}()
 
 	scanner := scan.New(input)
-	buf := bytes.Buffer{}
+	lang := bytes.Buffer{}
 
-	stdout := captureStdout(func() {
+	transpile_err := transpiler.Do(
+		scanner,
+		langoutput.NewWriteCloser(nopwritecloser.New(&lang)),
+		input,
+	)
 
-		success = transpiler.Do(
-			scanner,
-			langoutput.NewWriteCloser(nopwritecloser.New(&buf)),
-			input,
-		)
-	})
+	logs_buf := bytes.Buffer{}
+	if transpile_err != nil {
+		transpile_err.Show(&logs_buf)
+	}
 
-	return buf.String(), stdout, success
+	return lang.String(), logs_buf.String(), success
 }
 
 // see transpile() for signature

@@ -6,8 +6,6 @@ import (
 	"algo-iut-1/internal/tabanalyser"
 	"algo-iut-1/internal/transpiler/loops"
 	"algo-iut-1/internal/transpiler/translate"
-	"fmt"
-	"strings"
 )
 
 func doReturn(s scan.Scanner, output langoutput.T) {
@@ -21,17 +19,6 @@ func doAfficher(s scan.Scanner, output langoutput.T) {
 	s.Must(")")
 	s.Must(";")
 	output.Writef("std::cout << %s << std::endl;", value)
-}
-
-func showError(s scan.Scanner, src string, errStr interface{}) {
-	lines := strings.Split(src, "\n")
-	line := lines[s.Pos().Line-1]
-
-	fmt.Printf("Transpiler error: line %v\n", s.Pos().Line)
-	fmt.Println(line)
-	fmt.Print(strings.Repeat(" ", s.Pos().Column+1) + "^")
-	fmt.Println(strings.Repeat("-", len(s.Peek())-1))
-	fmt.Println(errStr)
 }
 
 // scan a function/procedure body. Returns when encountering "fin"

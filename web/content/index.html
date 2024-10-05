@@ -42,7 +42,6 @@
           let [outputText, logs, success] = transpile(inputText)
 
           document.getElementById("logs").innerHTML = logs;
-          console.log(logs)
           document.getElementById("success").innerHTML = success ? "Yes" : "No";
 
           rightEditorInst.setValue(outputText);

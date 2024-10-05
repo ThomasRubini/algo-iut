@@ -57,8 +57,9 @@ func Main() {
 
 	s := scan.New(src)
 
-	success := transpiler.Do(s, output, src)
-	if !success {
+	transpile_err := transpiler.Do(s, output, src)
+	if transpile_err != nil {
+		transpile_err.Show(os.Stderr)
 		os.Exit(1)
 	}
 }

@@ -7,12 +7,16 @@ import (
 	"runtime/debug"
 )
 
-func Do(s scan.Scanner, output langoutput.T, src string) (success bool) {
+func Do(s scan.Scanner, output langoutput.T, src string) (transpile_err *Error) {
 	defer func() {
 		if r := recover(); r != nil {
-			showError(s, src, r)
-			fmt.Println(string(debug.Stack()))
-			success = false
+			// return error
+			transpile_err = &Error{
+				src:           src,
+				errStr:        fmt.Sprintf("%v", r),
+				s:             s,
+				compilerStack: string(debug.Stack()),
+			}
 		}
 	}()
 
@@ -20,7 +24,7 @@ func Do(s scan.Scanner, output langoutput.T, src string) (success bool) {
 	output.Write("#include <vector>\n")
 	doRoot(s, output, src)
 
-	return true
+	return nil
 }
 
 func doRoot(s scan.Scanner, output langoutput.T, src string) {
