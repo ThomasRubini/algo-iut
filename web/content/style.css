@@ -19,3 +19,8 @@
 #logs {
     white-space: pre-wrap;
 }
+
+.horizontal {
+    display: flex;
+    gap: 50px;
+}

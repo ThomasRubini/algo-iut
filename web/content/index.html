@@ -21,7 +21,11 @@
   </div>
 
   <div id="results">
-    <p>Success: <span id="success"></span></p>
+    <div class="horizontal">
+      <p>Success: <span id="success">None</span></p>
+      <p> Last time executed: <span id="last-exec">None</span></p>
+      <p> Execution time: <span id="last-exec-time">None</span></p>
+    </div>
     <p>Logs:</p>
     <p id="logs"></p>
   </div>
@@ -45,10 +49,16 @@
 
       const inputText = leftEditorInst.getValue();
 
+      let start = performance.now();
       let [outputText, logs, success] = transpile(inputText)
+      let end = performance.now();
+
+      document.getElementById("success").innerText = success ? "Yes" : "No";
+      document.getElementById("last-exec").innerText = new Date().toLocaleTimeString();
+      document.getElementById("last-exec-time").innerText = (end - start).toFixed(2) + "ms";
+      
 
       document.getElementById("logs").innerText = logs;
-      document.getElementById("success").innerText = success ? "Yes" : "No";
 
       rightEditorInst.setValue(outputText);
     }
