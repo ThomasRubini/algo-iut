@@ -3,7 +3,7 @@ debut
 	declarer Car : caractere;
 	Car <- 'a';
 	boucle 
-		afficher (Car, '/', toupper(Car));
+		// afficher (Car, '/', toupper(Car));
 		ligne_suivante;
 		si (Car vaut 'z') sortie;
 		Car <- succ (Car);	
