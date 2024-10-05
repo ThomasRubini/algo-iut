@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Algo IUT Transpiler to C++</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
 
-  <body>
-    <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
-    <script src="wasm_exec.js"></script>
-    <script src="script.js"></script>
+<head>
+  <meta charset="utf-8" />
+  <title>Algo IUT Transpiler to C++</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-    <script>
-    </script>
+<body>
+  <script src="https://unpkg.com/monaco-editor@latest/min/vs/loader.js"></script>
+  <script src="wasm_exec.js"></script>
+  <script src="script.js"></script>
 
-    <div id="editors">
-      <div id="leftEditorTag" class="editor"></div>
-      <div id="rightEditorTag" class="editor"></div>
-    </div>
+  <script>
+  </script>
 
-    <div id="results">
-      <p>
-        Success: <span id="success"></span>
-      </p>
-      <p>Logs:</p>
-      <p id="logs"></p>
-    </div>
+  <div id="editors">
+    <div id="leftEditorTag" class="editor"></div>
+    <div id="rightEditorTag" class="editor"></div>
+  </div>
 
-    <script type="module">
-      initWasm();
-      await initMonaco();
+  <div id="results">
+    <p>Success: <span id="success"></span></p>
+    <p>Logs:</p>
+    <p id="logs"></p>
+  </div>
 
-      let typingTimer;
-      const transpileDelay = 200; // 0.5s
-      leftEditorInst.getModel().onDidChangeContent((event) => {
+  <script type="module">
+    initWasm();
+    await initMonaco();
 
-        clearTimeout(typingTimer); // Clear previous timer
-        typingTimer = setTimeout(() => {
-          const inputText = leftEditorInst.getValue();
-          
-          let [outputText, logs, success] = transpile(inputText)
+    let typingTimer;
+    const transpileDelay = 200; // 0.5s
+    leftEditorInst.getModel().onDidChangeContent((event) => {
 
-          document.getElementById("logs").innerText = logs;
-          document.getElementById("success").innerText = success ? "Yes" : "No";
+      clearTimeout(typingTimer); // Clear previous timer
+      typingTimer = setTimeout(() => {
+        const inputText = leftEditorInst.getValue();
 
-          rightEditorInst.setValue(outputText);
-        })
-      });
-    </script>
-  </body>
+        let [outputText, logs, success] = transpile(inputText)
+
+        document.getElementById("logs").innerText = logs;
+        document.getElementById("success").innerText = success ? "Yes" : "No";
+
+        rightEditorInst.setValue(outputText);
+      })
+    });
+  </script>
+</body>
+
 </html>
