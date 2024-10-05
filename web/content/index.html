@@ -35,17 +35,19 @@
     leftEditorInst.getModel().onDidChangeContent((event) => {
 
       clearTimeout(typingTimer); // Clear previous timer
-      typingTimer = setTimeout(() => {
-        const inputText = leftEditorInst.getValue();
-
-        let [outputText, logs, success] = transpile(inputText)
-
-        document.getElementById("logs").innerText = logs;
-        document.getElementById("success").innerText = success ? "Yes" : "No";
-
-        rightEditorInst.setValue(outputText);
-      })
+      typingTimer = setTimeout(doStuff)
     });
+
+    function doStuff() {
+      const inputText = leftEditorInst.getValue();
+
+      let [outputText, logs, success] = transpile(inputText)
+
+      document.getElementById("logs").innerText = logs;
+      document.getElementById("success").innerText = success ? "Yes" : "No";
+
+      rightEditorInst.setValue(outputText);
+    }
   </script>
 </body>
 
