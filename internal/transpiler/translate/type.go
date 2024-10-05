@@ -47,6 +47,8 @@ func Type(in string) string {
 		return "string"
 	case "booleen":
 		return "bool"
+	case "caractere":
+		return "char"
 	default:
 		panic(fmt.Sprintf("unknown type %s", in))
 	}
