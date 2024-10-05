@@ -14,8 +14,18 @@
     <script>
     </script>
 
-    <div id="leftEditorTag" class="editor"></div>
-    <div id="rightEditorTag" class="editor"></div>
+    <div id="editors">
+      <div id="leftEditorTag" class="editor"></div>
+      <div id="rightEditorTag" class="editor"></div>
+    </div>
+
+    <div id="results">
+      <p>
+        Success: <span id="success"></span>
+      </p>
+      <p>Logs:</p>
+      <div id="logs"></div>
+    </div>
 
     <script type="module">
       initWasm();
@@ -30,6 +40,10 @@
           const inputText = leftEditorInst.getValue();
           
           let [outputText, logs, success] = transpile(inputText)
+
+          document.getElementById("logs").innerHTML = logs;
+          console.log(logs)
+          document.getElementById("success").innerHTML = success ? "Yes" : "No";
 
           rightEditorInst.setValue(outputText);
         })
