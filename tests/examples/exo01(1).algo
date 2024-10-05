@@ -1,0 +1,5 @@
+algorithme Bonjour
+debut
+	afficher ("Bonjour");
+	ligne_suivante;
+fin	

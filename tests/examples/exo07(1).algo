@@ -1,0 +1,16 @@
+algorithme pythagore
+debut
+	afficher ("connaissez-vous le thm de Pyhagore ? ");	
+	declarer a, b, c : reel;
+	saisir (a);
+	saisir (b);
+	saisir (c);
+
+	si ((a*a vaut b*b + c*c) OU_SINON
+		(b*b vaut a*a + c*c) OU_SINON
+		(c*c vaut b*b + a*a))
+		afficher ("triangle rectangle");
+	sinon 
+		afficher ("triangle non rectangle");
+	fsi
+fin

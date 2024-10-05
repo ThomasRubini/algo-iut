@@ -1,0 +1,18 @@
+algorithme permuatation
+debut
+	afficher ("saisir 2 chaines de caractères");	
+	declarer str1, str2 : string;
+	saisir (str1);
+	saisir (str2);
+	
+	declarer str3 : string;
+	str3 <- str1;
+	str1 <- str2;
+	str2 <- str3;
+
+	afficher ("affichage des 2 strings après permutation : "); 
+	afficher (str1);
+	afficher (str2);
+//	afficher ("affichage des 2 strings après permutation : ", str1, str2); 
+
+fin

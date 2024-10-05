@@ -1,0 +1,18 @@
+algorithme IMC
+debut
+	afficher ("calcul d'un IMC");	
+	afficher ("entrez votre poids - en KG");	
+	declarer P : reel;
+	saisir(p);
+	afficher ("entrez votre taille - en mètre");	
+	declarer T : reel;
+	saisir(T);
+	declarer IMC : reel <- P / (T*T);
+	si (IMC < 25)
+		afficher ("la c'est bon ");
+	sinon_si ((25 <= IMC) ET_ALORS (IMC < 30))
+		afficher ("on arrete les apéros");
+	sinon 
+		afficher ("stop le mc do");	
+	fsi
+fin

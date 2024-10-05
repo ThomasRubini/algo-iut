@@ -1,0 +1,59 @@
+algorithme DixfoisBonjour
+debut
+
+	//avec une boucle pour
+	pour (i variant_de 1 a 10) // ou 0 a 9
+	faire
+		afficher ("bonjour");
+		ligne_suivante;
+	ffaire
+	ligne_suivante;
+
+	//avec une boucle jusqua
+	//i designe le nombre de fois où est est déjà passé dans la boucle
+	declarer i : entier_naturel; // ou declarer i : entier_naturel  <- 1;
+	i <- 1;        
+	jusqua (i vaut 10 + 1)  // ( i vaut 10 dans le cas ou entier_n <- 0; )
+	faire
+		afficher ("bonjour");
+		ligne_suivante;
+		i <- i + 1;
+	ffaire
+	ligne_suivante;
+
+
+	//avec une boucle tant_que
+	//i designe le nombre de fois où est est déjà passé dans la boucle
+	declarer i : entier_naturel <- 1;
+	tant_que (i ne_vaut_pas 10 + 1)
+	faire
+		afficher ("bonjour");
+		ligne_suivante;
+		i <- i + 1;
+	ffaire
+	ligne_suivante;
+
+	//avec une boucle repeter ... jusqua
+	declarer i : entier_naturel <- 1;
+	repeter
+		afficher ("bonjour");
+		ligne_suivante;
+		i <- i + 1;
+	jusqua (i vaut 10 + 1)
+	ligne_suivante;
+
+// merdum
+	// avec une boucle boucle ... fboucle
+	declarer i : entier_naturel <- 1;
+	boucle
+		si (i vaut 10 + 1) sortie;
+		afficher ("bonjour");
+		ligne_suivante;
+		i <- i + 1;
+	fboucle
+
+
+	ligne_suivante;
+
+
+fin

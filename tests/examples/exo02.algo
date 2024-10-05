@@ -1,0 +1,12 @@
+algorithme Echo
+debut
+	declarer Ligne : string;
+	boucle
+		afficher("Saisissez une chaine de caractères : ");
+		ligne_suivante;
+		saisir (Ligne);
+		si (taille (Ligne) vaut 0) sortie;
+		afficher (Ligne);
+		ligne_suivante;
+	fboucle
+fin

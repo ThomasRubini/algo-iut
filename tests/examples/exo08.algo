@@ -1,0 +1,13 @@
+algorithme division_3_et_5
+debut
+	afficher ("entrer un entier ");	
+	declarer nb : entier;
+	saisir (nb);
+	si ((modulo(nb,3) vaut 0 ET_ALORS modulo(nb,5) vaut 0)) 
+		afficher (" le nombre saisi est divisible par 3 et par 5");
+	sinon_si ((modulo(nb,3) ne_vaut_pas 0 	ET_ALORS modulo(nb,5) ne_vaut_pas 0))
+		afficher (" le nombre saisi n'est pas divisible par 3 et par 5");
+	sinon
+		afficher (" le nombre saisi est  divisible par 3 ou par 5");
+	fsi
+fin

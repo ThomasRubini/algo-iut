@@ -1,0 +1,43 @@
+fonction Puissance (X : in reel, N : in entier_naturel) renvoie reel
+debut
+	declarer Res : reel;
+	Res <- 1.0;
+	pour (i variant_de 1 a N)
+	faire
+		Res <- Res * X;
+	ffaire
+	renvoie Res;
+fin
+
+
+algorithme EvalPolyDegreN
+debut
+	declarer N : entier_naturel; //declaration - saisie du degré du polynome
+	afficher ("entrer le degre du polynome : ");
+	saisir (N);
+	
+	declarer TabReel : tableau_de (N + 1) reel; // declaration du tableau repésentant les coeffs du polynome
+
+	//remplissage du tableau de coeff
+	pour (i variant_de 0 a taille(TabReel) - 1)
+	faire
+		afficher ("entrer le coeeificient de a", i, " : ");
+		saisir (X);
+		//ou sinon saisir (TabReel [i]);
+	ffaire
+
+	declarer X : reel; 
+	afficher ("entrer une valeur pour la variable X : ");
+	saisir (X);
+
+	//calcul de la valeur du polynome en X
+	declarer Res : reel; // ou declarer Res : reel <- TabReel[0];
+	Res <- TabReel[0]; 
+	pour (i variant_de 1 a taille(TabReel) - 1)
+	faire
+		Res <- Res + TabReel [i] * Puissance (X, i);
+	ffaire
+
+	afficher ("la valeur du polynome est : ", Res);
+	ligne_suivante;
+fin

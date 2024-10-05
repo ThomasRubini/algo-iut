@@ -1,0 +1,86 @@
+//fonction qui renvoie la valeur absolue
+fonction abs (X : in reel) renvoie reel
+debut
+	si (X > 0) 
+		renvoie X;
+	sinon
+		renvoie -X;
+	fsi		
+fin
+
+// 
+//	fonction qui renvoie la racine carré d'un nombre
+//	Approximation de √a à l'aide de suites adjacentes : http://fr.wikipedia.org/wiki/Racine_carr%C3%A9e
+//
+fonction sqrt (X : in reel) renvoie reel
+debut
+	
+	//la précision
+	declarer eps : reel;
+	eps <- 0.01;
+
+	declarer u : reel;
+	u <- 1;
+	declarer v: reel;
+	v <- X;
+
+	//sert à mémoriser l'ancienne valeur de u
+	declarer tmp : reel;
+
+	tant_que (abs(u-v) > eps)
+	faire
+		tmp <- u;
+		u <- 2 / ((1/u) + (1/v));
+		v <- (tmp + v) / 2;
+	ffaire
+	renvoie u;
+fin
+
+algorithme racine_poly_2nd
+debut
+	afficher ("Calcul des racines d'un polynôme du 2nd degré du type aX^2 + bX + C = 0");
+	ligne_suivante;
+	
+	declarer a : reel; 
+	afficher ("entrer une valeur pour le coefficient a : ");
+	saisir (a);
+	
+	declarer b : reel; 
+	afficher ("entrer une valeur pour le coefficient b : ");
+	saisir (b);
+	
+	declarer c : reel; 
+	afficher ("entrer une valeur pour le coefficient c : ");
+	saisir (c);
+	
+	declarer Delta : reel;
+	Delta <- b*b - 4*a*c;
+
+//  optionnel
+//	afficher ("Delta = ", Delta); 
+//	ligne_suivante;
+
+//  optionnel	
+//	afficher ("racine (Delta) = " , sqrt(Delta)); 
+//	ligne_suivante;
+
+
+//  au choix	
+//	declarer KEps : constante reel <- 0.01;	
+//	si (abs (Delta) < KEps)
+//  ou 	
+	si (Delta vaut 0)
+		declarer racine : reel;
+		racine <- -b/2*a;
+		afficher ("le polynome n'a qu'une racine ", racine);	
+	sinon_si (Delta > 0)
+		declarer racine1 : reel;
+		racine1 <- (-b - sqrt(Delta)) /2*a ; 	
+		declarer racine2 : reel;
+		racine2 <- (-b + sqrt(Delta)) /2*a ; 	
+		afficher ("le polynome a deux racines ", racine1, " et ", racine2);
+	sinon
+		afficher ("le polynome n'a pas de racine");
+	fsi	
+	ligne_suivante;
+fin

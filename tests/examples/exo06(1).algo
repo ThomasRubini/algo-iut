@@ -1,0 +1,16 @@
+algorithme bissextile
+debut
+	afficher ("entrer une année");	
+	declarer annee : entier;
+	saisir (annee);
+	si (modulo (annee, 4) vaut 0 ET_ALORS
+		modulo (annee, 100) vaut 0) 
+		si (modulo (annee, 400) ne_vaut_pas  0)
+			afficher ("annee non bissextile");
+		sinon
+			afficher ("annee  bissextile");
+		fsi
+	sinon 
+		afficher ("annee non bissextile")
+	fsi
+fin

@@ -1,0 +1,25 @@
+algorithme eval_poly_2nd
+debut
+	afficher ("Evaluation d'un polynôme du 2nd degré du type aX^2 + bX + C");
+	ligne_suivante;
+	
+	declarer a : reel; 
+	afficher ("entrer une valeur pour le coefficient a : ");
+	saisir (a);
+	
+	declarer b : reel; 
+	afficher ("entrer une valeur pour le coefficient b : ");
+	saisir (b);
+	
+	declarer c : reel; 
+	afficher ("entrer une valeur pour le coefficient c : ");
+	saisir (c);
+	
+	declarer X : reel; 
+	afficher ("entrer une valeur pour la variable X : ");
+	saisir (X);
+
+	declarer Res : reel;
+	Res <- a*X*X + b*X + c;
+	ligne_suivante;
+fin
