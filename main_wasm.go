@@ -38,6 +38,7 @@ func transpile(input string) (output string, logs string, success bool) {
 	if transpile_err != nil {
 		transpile_err.Show(&logs_buf)
 	}
+	success = transpile_err == nil
 
 	return lang.String(), logs_buf.String(), success
 }
