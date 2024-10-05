@@ -24,7 +24,7 @@
         Success: <span id="success"></span>
       </p>
       <p>Logs:</p>
-      <div id="logs"></div>
+      <p id="logs"></p>
     </div>
 
     <script type="module">
@@ -41,8 +41,8 @@
           
           let [outputText, logs, success] = transpile(inputText)
 
-          document.getElementById("logs").innerHTML = logs;
-          document.getElementById("success").innerHTML = success ? "Yes" : "No";
+          document.getElementById("logs").innerText = logs;
+          document.getElementById("success").innerText = success ? "Yes" : "No";
 
           rightEditorInst.setValue(outputText);
         })

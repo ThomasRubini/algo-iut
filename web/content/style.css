@@ -15,3 +15,7 @@
     margin: 0 10px;
     resize: none;
 }
+
+#logs {
+    white-space: pre-wrap;
+}
