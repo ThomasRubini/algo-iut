@@ -7,8 +7,6 @@ import (
 	"algo-iut-1/internal/transpiler/loops"
 	"algo-iut-1/internal/transpiler/translate"
 	"fmt"
-	"os"
-	"runtime/debug"
 	"strings"
 )
 
@@ -40,7 +38,7 @@ func showError(s scan.Scanner, src string, errStr interface{}) {
 func doBody(s scan.Scanner, output langoutput.T, src string) {
 	tabsPrefix := tabanalyser.Do(src)
 	for {
-		if !doLine(s, output, tabsPrefix, src) {
+		if !doLine(s, output, tabsPrefix) {
 			break
 		}
 	}
@@ -51,15 +49,7 @@ func doLigneSuivante(s scan.Scanner, output langoutput.T) {
 	output.Write("std::cout << std::endl;")
 }
 
-func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string, src string) bool {
-	defer func() {
-		if r := recover(); r != nil {
-			showError(s, src, r)
-			fmt.Println(string(debug.Stack()))
-			os.Exit(2)
-		}
-	}()
-
+func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	// write tabs/space prefix
 	prefix := tabsPrefix[s.Pos().Line-1]
 	output.Write(prefix)
