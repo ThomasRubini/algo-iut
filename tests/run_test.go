@@ -16,7 +16,8 @@ import (
 func testOneSyntax(filepath string) (err error) {
 	codeBytes, err := os.ReadFile(filepath)
 	if err != nil {
-		return err
+		// this is an error in the test itself, not in the transpiler
+		panic(fmt.Errorf("read file error: %v", err))
 	}
 
 	src := string(codeBytes)
@@ -58,7 +59,7 @@ func TestSyntaxFail(t *testing.T) {
 
 	for _, entry := range entries {
 		t.Run(entry.Name(), func(t *testing.T) {
-			err := testOneSyntax("syntax/" + entry.Name())
+			err := testOneSyntax("syntax_fail/" + entry.Name())
 			if err == nil {
 				t.Fatal("expected error")
 			}
