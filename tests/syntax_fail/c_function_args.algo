@@ -1,0 +1,8 @@
+fonction cFunction(reel a) renvoie reel
+debut
+    renvoie 5.0;
+fin
+
+algorithme nom
+debut
+fin
