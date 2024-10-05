@@ -42,7 +42,7 @@ func captureStdout(f func()) string {
 	return <-outC
 }
 
-func transpile(input string) (output string, logs string) {
+func transpile(input string) (output string, logs string, success bool) {
 	defer func() {
 		if r := recover(); r != nil {
 			output = ""
@@ -55,14 +55,14 @@ func transpile(input string) (output string, logs string) {
 
 	stdout := captureStdout(func() {
 
-		transpiler.Do(
+		success = transpiler.Do(
 			scanner,
 			langoutput.NewWriteCloser(nopwritecloser.New(&buf)),
 			input,
 		)
 	})
 
-	return buf.String(), stdout
+	return buf.String(), stdout, success
 }
 
 // see transpile() for signature
@@ -72,8 +72,8 @@ func transpileJs(this js.Value, vals []js.Value) any {
 	}
 	input := vals[0].String()
 
-	output, logs := transpile(input)
-	return []interface{}{output, logs}
+	output, logs, success := transpile(input)
+	return []interface{}{output, logs, success}
 }
 
 func main() {

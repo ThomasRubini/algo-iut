@@ -56,5 +56,9 @@ func Main() {
 	defer output.Close()
 
 	s := scan.New(src)
-	transpiler.Do(s, output, src)
+
+	success := transpiler.Do(s, output, src)
+	if !success {
+		os.Exit(1)
+	}
 }

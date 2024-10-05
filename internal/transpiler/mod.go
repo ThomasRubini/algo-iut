@@ -4,22 +4,23 @@ import (
 	"algo-iut-1/internal/langoutput"
 	"algo-iut-1/internal/scan"
 	"fmt"
-	"os"
 	"runtime/debug"
 )
 
-func Do(s scan.Scanner, output langoutput.T, src string) {
+func Do(s scan.Scanner, output langoutput.T, src string) (success bool) {
 	defer func() {
 		if r := recover(); r != nil {
 			showError(s, src, r)
 			fmt.Println(string(debug.Stack()))
-			os.Exit(2)
+			success = false
 		}
 	}()
 
 	output.Write("#include <iostream>\n")
 	output.Write("#include <vector>\n")
 	doRoot(s, output, src)
+
+	return true
 }
 
 func doRoot(s scan.Scanner, output langoutput.T, src string) {

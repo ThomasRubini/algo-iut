@@ -29,7 +29,7 @@
         typingTimer = setTimeout(() => {
           const inputText = leftEditorInst.getValue();
           
-          let [outputText, logs] = transpile(inputText)
+          let [outputText, logs, success] = transpile(inputText)
 
           rightEditorInst.setValue(outputText);
         })
