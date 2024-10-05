@@ -34,7 +34,11 @@
     initWasm();
     await initMonaco();
 
-    leftEditorInst.setValue(localStorage.getItem("src") || '');
+    let savedCode = localStorage.getItem("src") || "";
+    leftEditorInst.setValue(savedCode);
+    if (savedCode) {
+      doStuff();
+    }
 
     let typingTimer;
     const transpileDelay = 200; // 0.5s
