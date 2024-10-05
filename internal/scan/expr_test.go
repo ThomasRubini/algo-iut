@@ -74,3 +74,16 @@ func TestTextOperator2(t *testing.T) {
 		scanexpr.Id("0"),
 	), s.Expr())
 }
+
+
+// brackets = ()
+func TestBrackets(t *testing.T) {
+	s := New("(1+2)")
+	assert.Equal(t, scanexpr.Merge(
+		scanexpr.Op("("),
+		scanexpr.Id("1"),
+		scanexpr.Op("+"),
+		scanexpr.Id("2"),
+		scanexpr.Op(")"),
+	), s.Expr())
+}

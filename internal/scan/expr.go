@@ -100,11 +100,22 @@ func (s *impl) Expr() scanexpr.Comp {
 		Comps: make([]scanexpr.Comp, 0),
 	}
 
-	e.Comps = append(e.Comps, idOrArrOrFun(s))
+	mode := ExprNextId
 
-	mode := ExprNextOperator
-
+	bracketCount := 0
 	for {
+		// handle brackets ()
+		if s.Match("(") {
+			bracketCount++
+			e.Comps = append(e.Comps, scanexpr.Op("("))
+			continue
+		}
+		if bracketCount > 0 && s.Match(")") {
+			bracketCount--
+			e.Comps = append(e.Comps, scanexpr.Op(")"))
+			continue
+		}
+
 		op := tryGetOperator(s)
 
 		if mode == ExprNextId { // if it expects an id
