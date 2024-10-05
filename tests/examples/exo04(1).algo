@@ -72,13 +72,11 @@ debut
 	si (Delta vaut 0)
 		declarer racine : reel;
 		racine <- -b/2*a;
-		afficher ("le polynome n'a qu'une racine ", racine);	
 	sinon_si (Delta > 0)
 		declarer racine1 : reel;
 		racine1 <- (-b - sqrt(Delta)) /2*a ; 	
 		declarer racine2 : reel;
 		racine2 <- (-b + sqrt(Delta)) /2*a ; 	
-		afficher ("le polynome a deux racines ", racine1, " et ", racine2);
 	sinon
 		afficher ("le polynome n'a pas de racine");
 	fsi	

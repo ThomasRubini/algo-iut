@@ -47,6 +47,12 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	case "si":
 		s.Advance()
 		doCondition(s, output)
+	case "sinon":
+		s.Advance()
+		output.Write("} else {")
+	case "sinon_si":
+		s.Advance()
+		doElseIf(s, output)
 	case "fsi":
 		s.Advance()
 		output.Write("}")

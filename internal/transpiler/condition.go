@@ -7,6 +7,10 @@ import (
 	"fmt"
 )
 
+func doElseIf(s scan.Scanner, output langoutput.T) {
+	output.Write("} else ")
+	doCondition(s, output)
+}
 func doCondition(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
 	condition := translate.Expr(s.Expr())
