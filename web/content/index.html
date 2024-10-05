@@ -30,6 +30,8 @@
     initWasm();
     await initMonaco();
 
+    leftEditorInst.setValue(localStorage.getItem("src") || '');
+
     let typingTimer;
     const transpileDelay = 200; // 0.5s
     leftEditorInst.getModel().onDidChangeContent((event) => {
@@ -39,6 +41,8 @@
     });
 
     function doStuff() {
+      localStorage.setItem("src", leftEditorInst.getValue());
+
       const inputText = leftEditorInst.getValue();
 
       let [outputText, logs, success] = transpile(inputText)
