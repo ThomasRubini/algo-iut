@@ -44,6 +44,15 @@ func tryGetOperator(s Scanner) *string {
 	if s.Match("vaut") {
 		return ref.String("vaut")
 	}
+
+	// other condition operators
+	if s.Match("ET_ALORS") {
+		return ref.String("ET_ALORS")
+	}
+
+	if s.Match("OU_ALORS") {
+		return ref.String("OU_ALORS")
+	}
 	return nil
 }
 
