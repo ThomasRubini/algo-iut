@@ -75,6 +75,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	case "boucle":
 		s.Advance()
 		loops.DoInfiniteLoop(s, output)
+	case "continue":
+		s.Advance()
+		loops.DoContinue(s, output)
 	case "sortie":
 		s.Advance()
 		loops.DoBreak(s, output)

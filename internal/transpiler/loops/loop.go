@@ -10,6 +10,10 @@ func DoInfiniteLoop(s scan.Scanner, output langoutput.T) {
 	output.Write("while(true) {")
 }
 
+func DoContinue(s scan.Scanner, output langoutput.T) {
+	s.Must(";")
+	output.Write("continue;")
+}
 func DoBreak(s scan.Scanner, output langoutput.T) {
 	s.Must(";")
 	output.Write("break;")
