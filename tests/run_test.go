@@ -10,8 +10,31 @@ import (
 	"os"
 	"testing"
 
+	"path/filepath"
+
 	"github.com/stretchr/testify/assert"
 )
+
+// recursively read directory
+func readDir(dirPath string) []string {
+	var filepaths []string
+
+	err := filepath.WalkDir(dirPath, func(path string, d os.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+		if !d.IsDir() {
+			filepaths = append(filepaths, path)
+		}
+		return nil
+	})
+
+	if err != nil {
+		panic(fmt.Errorf("walk error: %v", err))
+	}
+
+	return filepaths
+}
 
 func testOneSyntax(filepath string) (err error) {
 	codeBytes, err := os.ReadFile(filepath)
@@ -34,14 +57,9 @@ func testOneSyntax(filepath string) (err error) {
 func TestSyntax(t *testing.T) {
 	assert.Equal(t, 1, 1)
 
-	entries, err := os.ReadDir("syntax/")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	for _, entry := range entries {
-		t.Run(entry.Name(), func(t *testing.T) {
-			err := testOneSyntax("syntax/" + entry.Name())
+	for _, entry := range readDir("syntax/") {
+		t.Run(entry, func(t *testing.T) {
+			err := testOneSyntax(entry)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -52,14 +70,9 @@ func TestSyntax(t *testing.T) {
 func TestSyntaxFail(t *testing.T) {
 	assert.Equal(t, 1, 1)
 
-	entries, err := os.ReadDir("syntax_fail/")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	for _, entry := range entries {
-		t.Run(entry.Name(), func(t *testing.T) {
-			err := testOneSyntax("syntax_fail/" + entry.Name())
+	for _, entry := range readDir("syntax_fail/") {
+		t.Run(entry, func(t *testing.T) {
+			err := testOneSyntax(entry)
 			if err == nil {
 				t.Fatal("expected error")
 			}
@@ -72,14 +85,9 @@ func TestSyntaxFail(t *testing.T) {
 func TestExamples(t *testing.T) {
 	assert.Equal(t, 1, 1)
 
-	entries, err := os.ReadDir("examples/")
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	for _, entry := range entries {
-		t.Run(entry.Name(), func(t *testing.T) {
-			err := testOneSyntax("examples/" + entry.Name())
+	for _, entry := range readDir("examples/") {
+		t.Run(entry, func(t *testing.T) {
+			err := testOneSyntax(entry)
 			if err != nil {
 				t.Fatal(err)
 			}
