@@ -75,7 +75,6 @@ func TestTextOperator2(t *testing.T) {
 	), s.Expr())
 }
 
-
 // brackets = ()
 func TestBrackets(t *testing.T) {
 	s := New("(1+2)")
@@ -98,5 +97,13 @@ func TestAdvancedBrackets(t *testing.T) {
 		scanexpr.Op(")"),
 		scanexpr.Op("+"),
 		scanexpr.Id("5"),
+	), s.Expr())
+}
+
+func TestNegativeNumber(t *testing.T) {
+	s := New("-1")
+	assert.Equal(t, scanexpr.Merge(
+		scanexpr.Op("-"),
+		scanexpr.Id("1"),
 	), s.Expr())
 }

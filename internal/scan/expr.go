@@ -104,6 +104,11 @@ func idOrArrOrFun(s Scanner) scanexpr.Comp {
 	}
 }
 
+// -6 or +5
+func isValidMathOperator(s string) bool {
+	return s == "+" || s == "-"
+}
+
 func (s *impl) Expr() scanexpr.Comp {
 	e := scanexpr.CompMergeImpl{
 		Comps: make([]scanexpr.Comp, 0),
@@ -129,7 +134,12 @@ func (s *impl) Expr() scanexpr.Comp {
 
 		if mode == ExprNextId { // if it expects an id
 			if op != nil {
-				panic("2 operators detected")
+				if isValidMathOperator(*op) {
+					e.Comps = append(e.Comps, scanexpr.Op(*op))
+				} else {
+					panic("2 operators detected")
+				}
+				continue
 			} else {
 				e.Comps = append(e.Comps, idOrArrOrFun(s))
 			}
