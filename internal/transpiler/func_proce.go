@@ -32,7 +32,7 @@ func getFunctionOrProcedureHeaderArgs(s scan.Scanner) []typedVar {
 		// check arg type
 		var needRef bool
 		argType := s.Peek()
-		if slices.Contains([]string{"in", "out"}, argType) {
+		if slices.Contains([]string{"in", "out", "in_out"}, argType) {
 			s.Advance()
 			// idk if there is a real difference between them in generated C++
 			needRef = argType == "out"
