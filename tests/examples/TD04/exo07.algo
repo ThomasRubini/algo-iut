@@ -9,6 +9,7 @@ debut
     faire
         declarer indiceDeLaCaseAPermuter <- rand (0, taille(tabInt)-1);
         permuter (tabInt [i], tabInt[indiceDeLaCaseAPermuter]);
+    ffaire
 fin
 
 
