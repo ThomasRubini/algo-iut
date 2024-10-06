@@ -13,7 +13,8 @@ debut
     pour (i variant_de 0 a taille(chaine)-1) 
     faire
         si (isdigit(chaine[i]))
-            tabCpt[rang(chaine[i])] - rang('0') <- tabCpt[rang(chaine[i])] - rang('0');
+            tabCpt[rang(chaine[i]) - rang('0')] <- tabCpt[rang(chaine[i])] - rang('0');
+        fsi
     ffaire
 
 fin
