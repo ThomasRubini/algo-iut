@@ -15,7 +15,7 @@ fin
 
 algorithme testComptCaract
 debut 
-    declarer str : string 
+    declarer str : string;
     str <- "Salut ca va?"; 
     
     afficher("on trouve ", comptCaract ('a', str), "fois la lettre 'a' dans ", str);
