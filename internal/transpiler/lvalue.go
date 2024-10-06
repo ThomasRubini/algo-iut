@@ -8,12 +8,17 @@ import (
 )
 
 func doDeclare(s scan.Scanner, output langoutput.T) {
-	varName := s.Text()
+	varNames := []string{s.Text()} // first variable name
+
+	for s.Match(",") {
+		varName := s.Text()
+		varNames = append(varNames, varName)
+	}
 
 	s.Must(":")
 
 	tabLength := doTypeMaybeSize(s, output)
-	output.Writef(" %s", varName)
+	output.Writef(" %s", strings.Join(varNames, ", "))
 	if tabLength != nil {
 		output.Writef("(%s)", *tabLength)
 	}
