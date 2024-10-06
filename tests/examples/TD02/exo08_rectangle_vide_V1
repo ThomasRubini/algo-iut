@@ -1,0 +1,38 @@
+algorithme carrePleinV1
+debut
+	declarer KCar : constante caractere <- '#';
+	declarer Longueur : entier_naturel;
+	afficher ("entrer la longeur du rectangle : ");
+	saisir (Longueur);
+	declarer Hauteur : entier_naturel;
+	afficher ("entrer la hauteur du rectangle : ");
+	saisir (Hauteur);
+
+
+	//la premiere ligne - forcement pleine
+	pour (i variant_de 1 a Longueur)
+	faire
+		afficher (KCar);
+	ffaire
+	ligne_suivante;
+
+
+	//les lignes intermediaires
+	pour (j variant_de 1 a Hauteur - 1)
+	faire
+		afficher (KCar);
+		pour (i variant_de 2 a Longueur - 1)
+		faire
+			afficher (' ');	
+		ffaire
+		afficher (KCar);
+		ligne_suivante;
+	ffaire	
+
+	//la derniere ligne - forcement pleine
+	pour (i variant_de 1 a Longueur)
+	faire
+		afficher (KCar);
+	ffaire
+	ligne_suivante;
+fin	

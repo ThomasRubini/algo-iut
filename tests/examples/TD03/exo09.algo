@@ -1,0 +1,42 @@
+procedure genereTabInt (tabInt : in_out tableau_de entier, min : in entier, max : in entier)
+debut
+
+	declarer val : entier;
+	pour (i variant_de 0 a taille (tabInt) - 1)
+	faire
+		val <- rand (min, max);
+		tabInt [i] <- val;
+	ffaire	
+fin
+
+procedure afficheTabInt (tabInt : in tableau_de entier, sep : in caractere)
+debut
+	
+	//cpt designe le nombre d'affichage déjà effectué
+	declarer cpt :entier_naturel;
+	cpt <- 0;
+
+	pour (i variant_de 0 a taille(tabInt) - 2) // -1 sur algo8
+	faire
+
+		afficher (tabInt [i]);
+		cpt <- cpt + 1;
+		si (modulo (cpt, 5) vaut 0)
+			ligne_suivante;
+		sinon
+			afficher (sep);	//  " " sur 8
+		fsi	
+	ffaire
+//V2	afficher (tabInt [taille (tabInt) - 1]);
+//V2	ligne_suivante;
+fin
+
+algorithme utilisationDeAfficheTabIntEtDeGenereTabInt
+debut
+	declarer n : entier_naturel;
+	afficher ("entrer la taille du tableau : ");
+	saisir (n);
+	declarer tabInts : tableau_de n entier;
+	genereTabInt (tabInts, -200, 200);
+	afficheTabInt (tabInts, '-'); //(tabInts)
+fin

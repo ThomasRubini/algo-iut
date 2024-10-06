@@ -1,0 +1,25 @@
+fonction comptCaract (cararact : in caractere, chaine : in string) renvoie entier_naturel
+debut
+    declarer cpt : entier_naturel; 
+    cpt <- 0;
+    declarer pos : entier_naturel;
+    pos <- 0;
+    boucle
+        pos <- trouveCarDansStr (caract, chaine, pos);
+        si (pos vaut taille (chaine)) sortie;
+        cpt <- cpt + 1;
+        pos <- pos + 1;
+    fboucle
+    renvoie cpt;
+fin
+
+algorithme testComptCaract
+debut 
+    declarer str : string 
+    str <- "Salut ca va?"; 
+    
+    afficher("on trouve ", comptCaract ('a', str), "fois la lettre 'a' dans ", str);
+    ligne_suivante;
+    afficher("on trouve ", comptCaract ('b', str), "fois la lettre 'b' dans ", str);
+    ligne_suivante;
+fin

@@ -2,8 +2,8 @@ algorithme echo
 debut
 	afficher("Saisissez une chaine de caractères : ");
 	ligne_suivante;
-	declarer Ligne : string;
-	saisir (Ligne);
-	afficher (Ligne);
+	declarer ligne : string;
+	saisir (ligne);
+	afficher (ligne);
 	ligne_suivante;
 fin	 

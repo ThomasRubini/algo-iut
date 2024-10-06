@@ -1,0 +1,9 @@
+fonction oneArg(a: in tableau_de reel) renvoie reel
+debut
+    renvoie 5.0;
+fin
+
+algorithme nom
+debut
+
+fin

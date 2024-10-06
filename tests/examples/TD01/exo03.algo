@@ -21,5 +21,6 @@ debut
 
 	declarer Res : reel;
 	Res <- a*X*X + b*X + c;
+	afficher ("la valeur du polynome est : ", Res);
 	ligne_suivante;
 fin

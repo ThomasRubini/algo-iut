@@ -1,0 +1,20 @@
+fonction saisirEntierSupX  (invite : in string, msgErr : in string, x : in entier_naturel) renvoie entier_naturel
+debut
+	declarer n : entier_naturel;
+	boucle
+		afficher (invite);
+		saisir(n);
+		si (n > x) sortie;
+		afficher (msgErr);
+		ligne_suivante;
+	fboucle	
+	renvoie n;
+fin
+
+algorithme testSaisirEntierSupX
+debut
+	declarer n : entier_naturel;
+	n <- saisirEntierSupX ("Entrer une valeur supérieure a 10 : ", "Plus grande que 10 svp!", 10);
+	afficher ("Vous avez saisi : ", n);
+	ligne_suivante;
+fin

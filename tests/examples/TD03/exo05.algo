@@ -1,0 +1,36 @@
+procedure afficheTabInt (TabInt : in tableau_de entier)
+debut
+	pour (i variant_de 0 a taille(tabInt)-1)
+	faire
+		afficher (tabInt[i]," ");
+	ffaire
+	ligne_suivante;
+fin
+
+procedure genereTabInt (tabInt : in_out tableau_de entier,
+						min : in entier, max : in entier)
+debut
+	pour (i variant_de 0 a taille(tabInt)-1)
+	faire
+		tabInt[i] <- rand (min, max);
+	ffaire
+fin
+
+algorithme utilisationDeAfficheTabIntEtDeGenereTabInt
+	debut
+	declarer N : entier_naturel;
+	afficher ("saisir le nombre d'elements du tableau:");
+	saisir (N);
+	declarer tabInts : tableau_de N entier;
+	genereTabInt(tabInts, -200, 200);
+	afficheTabInt(tabInts);
+
+	declarer borneMin : entier;
+	afficher ("entrer la borne min: ");
+	saisir (borneMin);
+	declarer borneMax : entier;
+	afficher ("entrer la borne max ");
+	saisir (borneMax);
+	genereTabInt (tabInts, borneMin, borneMax);
+	afficheTabInt (tabInts);
+fin

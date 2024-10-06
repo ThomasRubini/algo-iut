@@ -1,0 +1,27 @@
+procedure afficheTabInt (TabInt : in tableau_de entier)
+debut
+	pour (i variant_de 0 a taille(tabInt)-1)
+	faire
+		afficher (tabInt[i]," ");
+	ffaire
+	ligne_suivante;
+fin
+procedure genereTabInt (tabInt : out tableau_de entier, N : in entier_naturel)
+debut
+	redimensionner (tabInt, N);
+	pour (i variant_de 0 a taille(tabInt)-1)
+	faire
+		afficher ("entrer la", i," eme case du tableau");
+		saisir (tabInt[i]);
+	ffaire
+fin
+
+algorithme utilisationDeAfficheTabIntEtDeGenereTabInt
+debut
+	declarer N : entier_naturel;
+	afficher ("saisir le nombre d'elements du tableau:");
+	saisir (N);
+	declarer tabInts : tableau_de entier;	
+	genereTabInt(tabInts, N);
+	afficheTabInt(tabInts);
+fin

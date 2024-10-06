@@ -1,0 +1,21 @@
+procedure genereTabInt (tabInt : in_out tableau_de entier, m : in entier)
+debut 
+    pour (i variant_de 0 a taille (tabInt)-1)
+    faire 
+        tabInt [i] <- i + 1;
+    ffaire
+
+    pour (i variant_de 0 a taille (tabInt)-1)
+    faire
+        declarer indiceDeLaCaseAPermuter <- rand (0, taille(tabInt)-1);
+        permuter (tabInt [i], tabInt[indiceDeLaCaseAPermuter]);
+fin
+
+
+procedure permuter (E1 : out entier, E2 : out entier)
+debut
+    declarer E3 : entier;
+    E3 <- E1;
+    E1 <- E2;
+    E2 <- E3;
+fin

@@ -1,0 +1,71 @@
+fonction find (val : in entier, tabInt : in tableau_de entier) renvoie entier_naturel
+debut
+	allonger (tabInt, 1); // a demander a casali
+	tabInt [taille (tabInt) - 1] <- val; //
+
+	declarer pos : entier_naturel;
+	pos <- 0;
+	tant_que (tabInt[pos] ne_vaut_pas val)
+	faire
+		pos <- pos + 1;
+	ffaire
+	renvoie pos;
+fin
+
+procedure genereTabInt (tabInt : in_out tableau_de entier, min : in entier, max : in entier)
+debut
+
+	declarer val : entier;
+	pour (i variant_de 0 a taille (tabInt) - 1)
+	faire
+		val <- rand (min, max);
+		tabInt [i] <- val;
+	ffaire	
+fin
+
+procedure afficheTabInt (tabInt : in tableau_de entier, sep : in caractere, nbParLigne : in entier_naturel)
+debut
+	
+	//cpt designe le nombre d'affichage déjà effectué
+	declarer cpt :entier_naturel;
+	cpt <- 0;
+
+	pour (i variant_de 0 a taille(tabInt) - 1)
+	faire
+
+		afficher (tabInt [i]);
+		cpt <- cpt + 1;
+		si (modulo (cpt, nbParLigne) vaut 0)
+			ligne_suivante;
+		sinon
+			afficher (sep);	
+		fsi	
+	ffaire
+fin
+
+algorithme testDeFind
+debut
+	declarer n : entier_naturel;
+	afficher ("entrer la taille du tableau : ");
+	saisir (n);
+
+	declarer tabInts : tableau_de n entier;
+
+	genereTabInt (tabInts, -100, 100);
+
+	afficheTabInt (tabInts, '\t', 10);
+	ligne_suivante;
+
+	declarer valCherchee : entier;
+	afficher ("entrer la valeur à trouver : ");
+	saisir (valCherchee);
+
+	declarer pos : entier_naturel;
+	pos <- find (valCherchee, tabInts);
+	si (pos < taille (tabInts))
+		afficher (valCherchee, " apparait pour la première fois à la position ", pos, " dans le tableau");
+	sinon
+		afficher (valCherchee, " n'apparait pas dans le tableau");
+	fsi	
+	ligne_suivante;
+fin

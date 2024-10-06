@@ -1,0 +1,15 @@
+algorithme carrePleinV1
+debut
+	declarer KCar : constante caractere <- '#';
+	declarer Hauteur : entier_naturel;
+	afficher ("entrer la hauteur du triangle : ");
+	saisir (Hauteur);
+
+	str [0] <- KCar;
+	pour (i variant_de 1 a Hauteur)
+	faire
+		afficher (str);
+		str <- str + KCar;
+		ligne_suivante;
+	ffaire
+fin	

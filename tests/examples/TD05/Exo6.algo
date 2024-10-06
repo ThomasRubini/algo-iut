@@ -1,0 +1,19 @@
+algorithme comptageGrandEssemble
+debut 
+    declarer chiffre : string <- "0123456789";
+    declarer minuscule : string <- "abcdefghijklmnopqrstuvwxyz";
+    declarer majuscule : string <- "ABCDEFGHIJKLMNOPKRSTUVWXYZ";
+    declarer enssembleDeComptage : string <- chiffre + minuscule + majuscule;
+    declarer tabCpt : tableau_de (taille(enssembleDeComptage)) entier_naturel;
+    pour (i variant_de 0 a taille(tabCpt)-1) 
+    faire
+        tabCpt[i] <- 0;
+    ffaire
+    declarer chaine : string <- "Une grande chaine de caracter et de chiffre comme 85380232";
+    pour (i variant_de 0 a taille(chaine)-1) 
+    faire
+        si (isdigit(chaine[i]))
+            tabCpt[rang(chaine[i])] - rang('0') <- tabCpt[rang(chaine[i])] - rang('0');
+    ffaire
+
+fin

@@ -13,6 +13,6 @@ debut
 	afficher ("affichage des 2 strings après permutation : "); 
 	afficher (str1);
 	afficher (str2);
-	afficher ("affichage des 2 strings après permutation : ", str1, str2); 
+//	afficher ("affichage des 2 strings après permutation : ", str1, str2); 
 
 fin

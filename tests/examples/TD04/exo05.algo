@@ -1,0 +1,123 @@
+fonction saisirEntierSupX  (invite : in string, msgErr : in string, x : in entier_naturel) renvoie entier_naturel
+debut
+	declarer n : entier_naturel;
+	boucle
+		afficher (invite);
+		saisir(n);
+		si (n > x) sortie;
+		afficher (msgErr);
+		ligne_suivante;
+	fboucle	
+	renvoie n;
+fin
+
+fonction find (val : in entier, tabInt : in tableau_de entier) renvoie entier_naturel
+debut
+	allonger (tabInt, 1);
+	tabInt [taille (tabInt) - 1] <- val;
+
+	declarer pos : entier_naturel;
+	pos <- 0;
+	tant_que (tabInt[pos] ne_vaut_pas val)
+	faire
+		pos <- pos + 1;
+	ffaire
+	renvoie pos;
+fin
+
+procedure afficheTabInt (tabInt : in tableau_de entier, sep : in caractere, nbParLigne : in entier_naturel)
+debut
+	
+	//cpt designe le nombre d'affichage déjà effectué
+	declarer cpt :entier_naturel;
+	cpt <- 0;
+
+	pour (i variant_de 0 a taille(tabInt) - 1)
+	faire
+
+		afficher (tabInt [i]);
+		cpt <- cpt + 1;
+		si (modulo (cpt, nbParLigne) vaut 0)
+			ligne_suivante;
+		sinon
+			afficher (sep);	
+		fsi	
+	ffaire
+fin
+
+// une première version pas du tout efficiente qui utilise find ()
+//procedure genereTabInt (tabInt : in_out tableau_de entier, m : in entier)
+//debut
+//	declarer val : entier;
+//	pour (nb variant_de 0 a taille (tabInt) - 1)
+//	faire
+//		boucle 
+//			val <- rand (1, m);
+//			declarer pos : entier_naturel;
+//			pos <- find (val, tabInt);
+//			si (pos vaut taille (tabInt)) sortie;
+//		fboucle	
+//		tabInt [nb] <- val;
+//	ffaire	
+//fin
+
+
+// une seconde version qui utilise la technique des sentinelles
+//procedure genereTabInt (tabInt : in_out tableau_de entier, m : in entier)
+//debut
+//	pour (nb variant_de 0 a taille (tabInt) - 1)
+//	faire
+//		boucle 
+//			tabInt [nb] <- rand (1, m);			
+//			declarer pos : entier_naturel;
+//			pos <- 0;
+//			tant_que ((pos ne_vaut_pas nb) OU_SINON (tabInt[pos] ne_vaut_pas tabInt[nb]))
+//			faire
+//				pos <- pos +1;
+//			ffaire
+//			si (pos vaut nb) sortie;
+//		fboucle	
+//	ffaire	
+//fin
+
+//une troisième qui fait moins de tests que la précédente
+procedure genereTabInt (tabInt : in_out tableau_de entier, m : in entier)
+debut
+	//pas besoin de test pour la première case tu tableau, l'élément généré est forcément unique
+	tabInt [0] <- rand (1, m);
+	
+	//du coup, on change la borne inf
+	pour (nb variant_de 1 a taille (tabInt) - 1)
+	faire
+		boucle 
+			tabInt [nb] <- rand (1, m);			
+			declarer pos : entier_naturel;
+			pos <- 0;
+			//un test de moins ici, on s'arrête avant la sentinelle
+			jusqua ((pos vaut (nb - 1)) OU_SINON (tabInt[pos] vaut tabInt[nb]))
+			faire
+				pos <- pos +1;
+			ffaire
+			//du coup le test de sortie change puisqu'on ne peut atteindre la sentinelle
+			si (tabInt[pos] ne_vaut_pas tabInt[nb]) sortie;
+		fboucle	
+	ffaire	
+fin
+
+algorithme testDeGenereTabInt
+debut
+	declarer n : entier_naturel;
+	afficher ("entrer la taille du tableau : ");
+	saisir (n);
+
+	declarer tabInts : tableau_de n entier;
+
+	declarer m : entier_naturel;
+	// afficher ("entrer la valeur maximale du tableau : "); car affiche une fois de trop
+	m <- saisirEntierSupX ("entrer la valeur maximale du tableau : ", "Plus grand que la taille du tableau svp ...", n);
+
+	genereTabInt (tabInts, m);
+
+	afficheTabInt (tabInts, '\t', 10);
+	ligne_suivante;
+fin

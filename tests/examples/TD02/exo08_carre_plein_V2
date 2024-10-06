@@ -1,0 +1,19 @@
+algorithme carrePleinV1
+debut
+	declarer KCar : constante caractere <- '#';
+	declarer Longueur : entier_naturel;
+	afficher ("entrer la longeur du carre : ");
+	saisir (Longueur);
+
+	declarer str : string;
+	pour (i variant_de 1 a Longueur)
+	faire
+		str <- str + KCar;
+	ffaire
+
+	pour (i variant_de 1 a Longueur)
+	faire
+		afficher (str);
+		ligne_suivante;
+	ffaire
+fin	

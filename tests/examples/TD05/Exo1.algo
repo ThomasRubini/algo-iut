@@ -1,0 +1,27 @@
+fonction trouveCarDansStr (caract : in caractere, chaine : in string, dbt : in  entier_naturel) renvoie entier_naturel
+debut
+    declarer i : entier_naturel; 
+    i <- dbt;
+    tant_que (i < taille(chaine) ET_ALORS 
+              caract ne_vaut_pas chaine[i])
+    faire 
+        i <- i + 1;
+    ffaire
+    renvoie i;
+fin
+
+//pas necessaire mais pour test 
+
+algorithme testDeTrouveCarDansStr
+debut
+    declarer str : string;
+    str <- "Salut ca va ?";
+    afficher (trouveCarDansStr ('a', str, 0));
+    ligne_suivante;
+    afficher (trouveCarDansStr ('a', str, 3));
+    ligne_suivante;
+    afficher (trouveCarDansStr ('a', str, 6));
+    ligne_suivante;
+    afficher (trouveCarDansStr ('b', str, 6));
+    ligne_suivante;
+fin
