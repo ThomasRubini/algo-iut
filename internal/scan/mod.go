@@ -17,6 +17,7 @@ type Scanner interface {
 
 	Text() string
 	Number() int
+	// value at the left of an assignation. e.g. `tab[5]` in `tab[5] <- 5`
 	LValue() string
 	Expr() scanexpr.Comp
 
