@@ -7,7 +7,7 @@ debut
 
     pour (i variant_de 0 a taille (tabInt)-1)
     faire
-        declarer indiceDeLaCaseAPermuter <- rand (0, taille(tabInt)-1);
+        declarer indiceDeLaCaseAPermuter : entier_naturel <- rand (0, taille(tabInt)-1);
         permuter (tabInt [i], tabInt[indiceDeLaCaseAPermuter]);
     ffaire
 fin
