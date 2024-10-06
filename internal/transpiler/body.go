@@ -5,7 +5,7 @@ import (
 	"algo-iut/internal/scan"
 	"algo-iut/internal/tabanalyser"
 	"algo-iut/internal/transpiler/loops"
-	"algo-iut/internal/transpiler/translate"
+	"strings"
 )
 
 func doReturn(s scan.Scanner, output langoutput.T) {
@@ -15,10 +15,10 @@ func doReturn(s scan.Scanner, output langoutput.T) {
 
 func doAfficher(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
-	value := translate.Expr(s.Expr())
+	args := getFunctionArgs(s)
 	s.Must(")")
 	s.Must(";")
-	output.Writef("std::cout << %s << std::endl;", value)
+	output.Writef("std::cout << %s << std::endl;", strings.Join(args, " << "))
 }
 
 // scan a function/procedure body. Returns when encountering "fin"
