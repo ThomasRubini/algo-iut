@@ -27,6 +27,7 @@ func doTypeMaybeSize(s scan.Scanner, output langoutput.T) (size *string) {
 			output.Write(">")
 			return ref.String(translate.Expr(size))
 		} else {
+			s.Advance()
 			output.Writef("std::vector<%s>", *maybeType)
 			return nil
 		}
