@@ -44,6 +44,28 @@ func doLValueStart(s scan.Scanner, output langoutput.T) {
 	}
 }
 
+// reads the arguments of a function call **and no parenthesis**
+// the first parenthesis must have been eaten
+func getFunctionArgs(s scan.Scanner) []string {
+	args := []string{}
+
+	if s.Peek() == ")" {
+		return args
+	}
+
+	for {
+		arg := s.Expr()
+		args = append(args, translate.Expr(arg))
+
+		if s.Peek() == ")" {
+			return args
+		} else if s.Match(",") {
+		} else {
+			s.InvalidToken("expected ',' or ')'")
+		}
+	}
+}
+
 func doFunctionCall(s scan.Scanner, output langoutput.T, name string) {
 	output.Writef("%s(", name)
 
