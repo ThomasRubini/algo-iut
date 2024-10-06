@@ -1,7 +1,7 @@
 algorithme pythagore
 debut
 	afficher ("connaissez-vous le thm de Pyhagore ? ");	
-	// declarer a, b, c : reel;
+	declarer a, b, c : reel;
 	saisir (a);
 	saisir (b);
 	saisir (c);

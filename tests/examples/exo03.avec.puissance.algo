@@ -21,6 +21,7 @@ debut
 	//remplissage du tableau de coeff
 	pour (i variant_de 0 a taille(TabReel) - 1)
 	faire
+		afficher ("entrer le coeeificient de a", i, " : ");
 		saisir (X);
 		//ou sinon saisir (TabReel [i]);
 	ffaire
@@ -37,5 +38,6 @@ debut
 		Res <- Res + TabReel [i] * Puissance (X, i);
 	ffaire
 
+	afficher ("la valeur du polynome est : ", Res);
 	ligne_suivante;
 fin
