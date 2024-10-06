@@ -50,8 +50,8 @@ func tryGetOperator(s Scanner) *string {
 		return ref.String("ET_ALORS")
 	}
 
-	if s.Match("OU_ALORS") {
-		return ref.String("OU_ALORS")
+	if s.Match("OU_SINON") {
+		return ref.String("OU_SINON")
 	}
 	return nil
 }
