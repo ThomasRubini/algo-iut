@@ -4,6 +4,7 @@ import (
 	"algo-iut/internal/langoutput"
 	"algo-iut/internal/scan"
 	"algo-iut/internal/transpiler/translate"
+	"strings"
 )
 
 func doDeclare(s scan.Scanner, output langoutput.T) {
@@ -69,23 +70,10 @@ func getFunctionArgs(s scan.Scanner) []string {
 func doFunctionCall(s scan.Scanner, output langoutput.T, name string) {
 	output.Writef("%s(", name)
 
-	if s.Match(")") {
-		s.Must(";")
-		output.Write(");")
-		return
-	}
+	args := getFunctionArgs(s)
+	output.Write(strings.Join(args, ", "))
 
-	for {
-		arg := s.Expr()
-		output.Write(translate.Expr(arg))
-
-		if s.Match(")") {
-			s.Must(";")
-			output.Write(");")
-			break
-		} else if s.Match(",") {
-		} else {
-			s.InvalidToken("expected ',' or ')'")
-		}
-	}
+	s.Must(")")
+	s.Must(";")
+	output.Write(");")
 }
