@@ -87,3 +87,16 @@ func TestBrackets(t *testing.T) {
 		scanexpr.Op(")"),
 	), s.Expr())
 }
+
+func TestAdvancedBrackets(t *testing.T) {
+	s := New("(1+2)+5")
+	assert.Equal(t, scanexpr.Merge(
+		scanexpr.Op("("),
+		scanexpr.Id("1"),
+		scanexpr.Op("+"),
+		scanexpr.Id("2"),
+		scanexpr.Op(")"),
+		scanexpr.Op("+"),
+		scanexpr.Id("5"),
+	), s.Expr())
+}
