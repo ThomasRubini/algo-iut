@@ -1,7 +1,7 @@
 algorithme permuatation
 debut
 	afficher ("saisir 2 chaines de caractères");	
-	declarer str1, str2 : string;
+	// declarer str1, str2 : string;
 	saisir (str1);
 	saisir (str2);
 	
