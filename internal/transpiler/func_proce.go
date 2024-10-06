@@ -3,7 +3,6 @@ package transpiler
 import (
 	"algo-iut/internal/langoutput"
 	"algo-iut/internal/scan"
-	"algo-iut/internal/transpiler/translate"
 	"fmt"
 	"slices"
 )
@@ -42,7 +41,9 @@ func doFunctionOrProcedureArgs(s scan.Scanner) []typedVar {
 		}
 
 		// get var type
-		varType := translate.Type(scanType(s))
+		o := langoutput.NewString()
+		doTypeNoSize(s, o)
+		varType := o.String()
 
 		// append
 		args = append(args, typedVar{varType, varName, needRef})

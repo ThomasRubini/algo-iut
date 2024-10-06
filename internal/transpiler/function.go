@@ -3,7 +3,6 @@ package transpiler
 import (
 	"algo-iut/internal/langoutput"
 	"algo-iut/internal/scan"
-	"algo-iut/internal/transpiler/translate"
 )
 
 func doFunctionHeader(s scan.Scanner, output langoutput.T) {
@@ -15,11 +14,11 @@ func doFunctionHeader(s scan.Scanner, output langoutput.T) {
 
 	// get return type
 	s.Must("renvoie")
-	retType := translate.Type(scanType(s))
-
+	retTypeOutput := langoutput.NewString()
+	doTypeNoSize(s, retTypeOutput)
 	s.Must("debut")
 
-	writeFunctionOrProcedureHeader(functionName, args, retType, output)
+	writeFunctionOrProcedureHeader(functionName, args, retTypeOutput.String(), output)
 }
 
 func doFunction(s scan.Scanner, output langoutput.T, src string) {

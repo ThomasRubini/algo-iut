@@ -4,7 +4,6 @@ import (
 	"algo-iut/internal/langoutput"
 	"algo-iut/internal/scan"
 	"algo-iut/internal/transpiler/translate"
-	"fmt"
 )
 
 func doDeclare(s scan.Scanner, output langoutput.T) {
@@ -12,11 +11,10 @@ func doDeclare(s scan.Scanner, output langoutput.T) {
 
 	s.Must(":")
 
-	varType, tabLength := translate.TypeMaybeSize(s)
-	if tabLength == nil {
-		output.Write(fmt.Sprintf("%v %v", varType, varName))
-	} else {
-		output.Write(fmt.Sprintf("%v %v(%v)", varType, varName, *tabLength))
+	tabLength := doTypeMaybeSize(s, output)
+	output.Writef(" %s", varName)
+	if tabLength != nil {
+		output.Writef("(%s)", *tabLength)
 	}
 
 	// check if doing assignation at the same time
