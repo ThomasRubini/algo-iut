@@ -9,10 +9,10 @@ import (
 )
 
 type Error struct {
-	src           string
-	errStr        string
-	s             scan.Scanner
-	compilerStack string
+	src             string
+	errStr          string
+	s               scan.Scanner
+	transpilerStack string
 }
 
 func (e *Error) Show(w io.Writer) {
@@ -25,8 +25,8 @@ func (e *Error) Show(w io.Writer) {
 	fmt.Fprintln(w, strings.Repeat("-", len(e.s.Peek())-1))
 	fmt.Fprintln(w, e.errStr)
 
-	fmt.Fprintln(w, "Compiler stacktrace:")
-	fmt.Fprintln(w, e.compilerStack)
+	fmt.Fprintln(w, "Transpiler stacktrace:")
+	fmt.Fprintln(w, e.transpilerStack)
 
 }
 

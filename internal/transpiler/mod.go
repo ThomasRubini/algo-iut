@@ -12,10 +12,10 @@ func Do(s scan.Scanner, output langoutput.T, src string) (transpile_err *Error) 
 		if r := recover(); r != nil {
 			// return error
 			transpile_err = &Error{
-				src:           src,
-				errStr:        fmt.Sprintf("%v", r),
-				s:             s,
-				compilerStack: string(debug.Stack()),
+				src:             src,
+				errStr:          fmt.Sprintf("%v", r),
+				s:               s,
+				transpilerStack: string(debug.Stack()),
 			}
 		}
 	}()
