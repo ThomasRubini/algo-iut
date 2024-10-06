@@ -10,7 +10,7 @@ This project works as a CLI (available on Linux/Windows/MacOS), and as an online
 - A new binary `algo-iut` (or `algo-iut.exe` on Windows) will have been created.
 
 # FAQ
-## Non-acceptd syntaxes
+## Non-accepted syntaxes
 We aren't sure if these syntaxes are valid or not (ask Casali)
 
 ### Declaration without type
