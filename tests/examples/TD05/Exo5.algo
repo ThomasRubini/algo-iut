@@ -9,7 +9,7 @@ debut
     pour (i variant_de 0 a taille(tabString)-1)
     faire 
         declarer j : entier_naturel <- 0;
-        pour (j < taille(voyelle)-1)
+        tant_que(j < taille(voyelle)-1)
         faire 
             si (voyelle[j] vaut tabString[i])
                 cptNombreVoyelle <- cptNombreVoyelle+1;
