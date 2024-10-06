@@ -7,14 +7,14 @@ import (
 
 type WriteCloserString struct {
 	T
-	buf bytes.Buffer
+	buf *bytes.Buffer
 }
 
 func NewString() WriteCloserString {
 	buf := bytes.Buffer{}
 	return WriteCloserString{
 		T:   NewWriteCloser(nopwritecloser.New(&buf)),
-		buf: buf,
+		buf: &buf,
 	}
 }
 
