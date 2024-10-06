@@ -10,7 +10,7 @@ func doFunctionHeader(s scan.Scanner, output langoutput.T) {
 	functionName := s.Text()
 
 	// get function args
-	args := doFunctionOrProcedureArgs(s)
+	args := getFunctionOrProcedureHeaderArgs(s)
 
 	// get return type
 	s.Must("renvoie")

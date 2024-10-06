@@ -13,7 +13,7 @@ type typedVar struct {
 	ref     bool
 }
 
-func doFunctionOrProcedureArgs(s scan.Scanner) []typedVar {
+func getFunctionOrProcedureHeaderArgs(s scan.Scanner) []typedVar {
 	s.Must("(")
 
 	args := make([]typedVar, 0)
