@@ -13,7 +13,7 @@ debut
         faire 
             si (voyelle[j] vaut tabString[i])
                 cptNombreVoyelle <- cptNombreVoyelle+1;
-                sortie
+                sortie;
             fsi
             j <- j +1;
         ffaire
@@ -22,7 +22,7 @@ debut
     faire
         tabNbChaqueVoyelle[i] <- comptCaractV2(voyelle[i],tabString);
     ffaire
-    afficher(cptNombreVoyelle, tabNbChaqueVoyelle)
+    afficher(cptNombreVoyelle, tabNbChaqueVoyelle);
     pour (i variant_de 0 a taille(voyelle)-1) 
     faire
         afficher("La voyelle ", voyelle[i], " apparait ", tabNbChaqueVoyelle[i], " fois a une fréquece de ", 
