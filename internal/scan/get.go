@@ -39,7 +39,7 @@ func (s *impl) LValue() string {
 
 	if s.Peek() == "[" {
 		s.Text() // consume '['
-		inside := s.LValue()
+		inside := s.Expr()
 		s.Must("]")
 		return fmt.Sprintf("%v[%v]", tok, inside)
 	} else {
