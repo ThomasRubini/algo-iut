@@ -23,6 +23,9 @@ type Scanner interface {
 
 	InvalidToken(string)
 	Pos() scanner.Position
+
+	// best thing to do if we want to rewind the scanner
+	Copy() Scanner
 }
 
 type impl struct {
@@ -72,4 +75,9 @@ func (s *impl) Must(expected string) {
 
 func (s *impl) Pos() scanner.Position {
 	return s.goImpl.Pos()
+}
+
+func (s *impl) Copy() Scanner {
+	clone := *s
+	return &clone
 }
