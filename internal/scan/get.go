@@ -28,7 +28,7 @@ var keywords = []string{
 	// function stuff
 	"fonction", "procedure", "renvoie",
 	// others
-	"debut","fin",
+	"debut", "fin",
 }
 
 func (s *impl) LValue() string {
@@ -37,8 +37,7 @@ func (s *impl) LValue() string {
 		s.InvalidToken("Expected lvalue, found reserved keyword")
 	}
 
-	if s.Peek() == "[" {
-		s.Text() // consume '['
+	if s.Match("[") {
 		inside := s.Expr()
 		s.Must("]")
 		return fmt.Sprintf("%v[%v]", tok, inside)
