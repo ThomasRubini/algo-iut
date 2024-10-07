@@ -20,8 +20,8 @@ func exprFunction(e scanexpr.CompFuncImpl) string {
 		}
 		return fmt.Sprintf("(char) (--%s)", Expr(e.Args[0]))
 	case "modulo":
-		if len(e.Args) != 1 {
-			panic("modulo() must have exactly one argument")
+		if len(e.Args) != 2 {
+			panic("modulo() must have exactly 2 arguments")
 		}
 		return fmt.Sprintf("%s %% %s", Expr(e.Args[0]), Expr(e.Args[1]))
 	case "taille":
