@@ -15,7 +15,7 @@ func Type(in string) *string {
 	case "char":
 		return ref.String("char")
 	case "string":
-		return ref.String("string")
+		return ref.String("std::string")
 	case "booleen":
 		return ref.String("bool")
 	case "caractere":
