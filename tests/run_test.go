@@ -95,6 +95,7 @@ func TestSyntaxFail(t *testing.T) {
 
 // same as testing the syntax, but these are actual real-world examples, rather than a specific syntax being tested.
 // should not be useful, but might as well test :)
+// +, we test output C++ syntax validity
 func TestExamples(t *testing.T) {
 	assert.Equal(t, 1, 1)
 
