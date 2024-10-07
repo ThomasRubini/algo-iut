@@ -23,7 +23,7 @@ func doAfficher(s scan.Scanner, output langoutput.T) {
 
 func doSaisir(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
-	variable := s.Text()
+	variable := s.LValue()
 	s.Must(")")
 	s.Must(";")
 	output.Writef("std::cin >> %s;", variable)
