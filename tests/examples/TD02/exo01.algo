@@ -47,6 +47,7 @@ debut
 	i <- 1;
 	boucle
 		si (i vaut 10 + 1) sortie;
+		fsi
 		afficher ("bonjour");
 		ligne_suivante;
 		i <- i + 1;
