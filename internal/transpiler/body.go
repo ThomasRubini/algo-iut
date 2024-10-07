@@ -21,6 +21,14 @@ func doAfficher(s scan.Scanner, output langoutput.T) {
 	output.Writef("std::cout << %s << std::endl;", strings.Join(args, " << "))
 }
 
+func doSaisir(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	variable := s.Text()
+	s.Must(")")
+	s.Must(";")
+	output.Writef("std::cin >> %s;", variable)
+}
+
 // scan a function/procedure body. Returns when encountering "fin"
 func doBody(s scan.Scanner, output langoutput.T, src string) {
 	tabsPrefix := tabanalyser.Do(src)
@@ -87,10 +95,13 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	case "fboucle":
 		s.Advance()
 		output.Write("}")
-	// afficher special case
+	// special functions
 	case "afficher":
 		s.Advance()
 		doAfficher(s, output)
+	case "saisir":
+		s.Advance()
+		doSaisir(s, output)
 	// others
 	case "ligne_suivante":
 		s.Advance()
