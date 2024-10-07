@@ -2,12 +2,12 @@ algorithme IMC
 debut
 	afficher ("calcul d'un IMC");	
 	afficher ("entrez votre poids - en KG");	
-	declarer P : reel;
+	declarer p : reel;
 	saisir(p);
 	afficher ("entrez votre taille - en mètre");	
 	declarer T : reel;
 	saisir(T);
-	declarer IMC : reel <- P / (T*T);
+	declarer IMC : reel <- p / (T*T);
 	si (IMC < 25)
 		afficher ("la c'est bon ");
 	sinon_si ((25 <= IMC) ET_ALORS (IMC < 30))
