@@ -6,6 +6,7 @@ debut
 		ligne_suivante;
 		saisir (Ligne);
 		si (taille (Ligne) vaut 0) sortie;
+		fsi
 		afficher (Ligne);
 		ligne_suivante;
 	fboucle
