@@ -47,11 +47,11 @@ func tryGetOperator(s Scanner) *string {
 
 	// other condition operators
 	if s.Match("ET_ALORS") {
-		return ref.String("ET_ALORS")
+		return ref.String("&&")
 	}
 
 	if s.Match("OU_SINON") {
-		return ref.String("OU_SINON")
+		return ref.String("||")
 	}
 	return nil
 }
