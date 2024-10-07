@@ -7,7 +7,24 @@ import (
 )
 
 func exprFunction(e scanexpr.CompFuncImpl) string {
-	if e.Name == "taille" {
+	// try special functions
+	switch e.Name {
+	case "succ":
+		if len(e.Args) != 1 {
+			panic("succ() must have exactly one argument")
+		}
+		return fmt.Sprintf("(char) (++%s)", Expr(e.Args[0]))
+	case "prec":
+		if len(e.Args) != 1 {
+			panic("prec() must have exactly one argument")
+		}
+		return fmt.Sprintf("(char) (--%s)", Expr(e.Args[0]))
+	case "modulo":
+		if len(e.Args) != 1 {
+			panic("modulo() must have exactly one argument")
+		}
+		return fmt.Sprintf("%s %% %s", Expr(e.Args[0]), Expr(e.Args[1]))
+	case "taille":
 		if len(e.Args) != 1 {
 			panic("taille() must have exactly one argument")
 		}
