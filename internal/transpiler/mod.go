@@ -22,6 +22,7 @@ func Do(s scan.Scanner, output langoutput.T, src string) (transpile_err *Error) 
 
 	output.Write("#include <iostream>\n")
 	output.Write("#include <vector>\n")
+	output.Write("using namespace std;\n")
 	doRoot(s, output, src)
 
 	return nil
