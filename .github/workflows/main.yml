@@ -16,8 +16,23 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
 
-      - name: Build
-        run: go build
-
       - name: Test
         run: go test ./...
+      
+      - name: Build for all platforms
+        run: |
+          go build -o algo-iut-linux
+          GOOS=windows GOARCH=amd64 go build -o algo-iut-win.exe
+          GOOS=darwin GOARCH=amd64 go build -o algo-iut-osx
+
+
+      - name: Update nightly release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            algo-iut-linux
+            algo-iut-win.exe
+            algo-iut-osx
+          name: Nightly automated release
+          tag_name: nightly
+          make_latest: true
