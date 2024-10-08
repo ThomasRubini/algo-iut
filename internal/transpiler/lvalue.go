@@ -41,8 +41,9 @@ func doLValueStart(s scan.Scanner, output langoutput.T) {
 	if s.Match("<") { // assignation
 		s.Must("-")
 
-		value := s.UntilEOL()
-		output.Writef("%s = %s;", lval, value)
+		value := s.Expr()
+		s.Must(";")
+		output.Writef("%s = %s;", lval, translate.Expr(value))
 	} else if s.Match("(") { // function call
 		doFunctionCall(s, output, lval)
 	} else {
