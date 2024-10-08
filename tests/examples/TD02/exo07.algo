@@ -7,6 +7,6 @@ debut
 		ligne_suivante;
 		si (Car vaut 'a') sortie;
 		fsi
-		Car <- pred (Car);	
+		Car <- prec (Car);	
 	fboucle
 fin	
