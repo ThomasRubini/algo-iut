@@ -1,6 +1,7 @@
 package scan
 
 import (
+	"algo-iut/internal/transpiler/translate"
 	"fmt"
 	"slices"
 	"strconv"
@@ -40,7 +41,7 @@ func (s *impl) LValue() string {
 	if s.Match("[") {
 		inside := s.Expr()
 		s.Must("]")
-		return fmt.Sprintf("%v[%v]", tok, inside)
+		return fmt.Sprintf("%v[%v]", tok, translate.Expr(inside))
 	} else {
 		return tok
 	}
