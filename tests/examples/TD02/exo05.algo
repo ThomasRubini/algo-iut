@@ -6,6 +6,7 @@ debut
 		afficher (Car);
 		ligne_suivante;
 		si (Car vaut 'Z') sortie;
+		fsi
 		Car <- succ (Car);	
 	fboucle
 fin	
