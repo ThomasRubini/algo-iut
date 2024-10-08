@@ -29,6 +29,11 @@ func exprFunction(e scanexpr.CompFuncImpl) string {
 			panic("taille() must have exactly one argument")
 		}
 		return fmt.Sprintf("%s.size()", Expr(e.Args[0]))
+	case "rand":
+		if len(e.Args) != 2 {
+			panic("rand() must have exactly 2 argument")
+		}
+		return fmt.Sprintf("rand() %% %s + %s", Expr(e.Args[1]), Expr(e.Args[0]))
 	}
 
 	args := make([]string, len(e.Args))
