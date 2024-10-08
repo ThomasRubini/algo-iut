@@ -48,6 +48,7 @@ debut
         declarer pos : entier_naturel <- 
             trouveCarDansStr (chaine[i], voyelle);
         si (pos vaut 6) continue;
+        fsi
         tabCpt [pos] <- tabCpt [pos] + 1;
     ffaire
 
