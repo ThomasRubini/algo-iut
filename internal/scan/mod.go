@@ -40,7 +40,7 @@ func New(input string) Scanner {
 }
 
 func (s *impl) HasMore() bool {
-	return s.goImpl.Peek() != scanner.EOF
+	return s.Peek() != ""
 }
 
 func (s *impl) InvalidToken(help string) {
