@@ -22,7 +22,7 @@ func (e *Error) Show(w io.Writer) {
 	fmt.Fprintf(w, "Transpiler error: line %v\n", e.s.Pos().Line)
 	fmt.Fprintln(w, line)
 	fmt.Fprint(w, strings.Repeat(" ", e.s.Pos().Column+1)+"^")
-	fmt.Fprintln(w, strings.Repeat("-", len(e.s.Peek())-1))
+	fmt.Fprintln(w, strings.Repeat("-", len(e.s.Peek())))
 	fmt.Fprintln(w, e.errStr)
 
 	fmt.Fprintln(w, "Transpiler stacktrace:")
