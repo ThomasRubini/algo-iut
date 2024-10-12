@@ -12,7 +12,6 @@ type Scanner interface {
 	Advance()
 	Match(string) bool
 	Must(string)
-	UntilEOL() string
 	HasMore() bool
 
 	Text() string
