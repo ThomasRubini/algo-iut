@@ -34,6 +34,11 @@ func exprFunction(e scanexpr.CompFuncImpl) string {
 			panic("rand() must have exactly 2 argument")
 		}
 		return fmt.Sprintf("rand() %% %s + %s", Expr(e.Args[1]), Expr(e.Args[0]))
+	case "rang":
+		if len(e.Args) != 1 {
+			panic("rang() must have exactly 1 argument")
+		}
+		return fmt.Sprintf("(char) (%s)", Expr(e.Args[0]))
 	}
 
 	args := make([]string, len(e.Args))
