@@ -40,6 +40,16 @@ func doAllonger(s scan.Scanner, output langoutput.T) {
 
 	output.Writef("%v.resize(%v.size() + %v);", vec, vec, amount)
 }
+func doRedimensionner(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	vec := translate.Expr(s.Expr())
+	s.Must(",")
+	amount := translate.Expr(s.Expr())
+	s.Must(")")
+	s.Must(";")
+
+	output.Writef("%v.resize(%v);", vec, amount)
+}
 
 func doPermuter(s scan.Scanner, output langoutput.T) {
 	s.Must("(")
@@ -132,6 +142,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	case "allonger":
 		s.Advance()
 		doAllonger(s, output)
+	case "redimensionner":
+		s.Advance()
+		doRedimensionner(s, output)
 	case "permuter":
 		s.Advance()
 		doPermuter(s, output)
