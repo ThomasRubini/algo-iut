@@ -26,8 +26,9 @@ func doDeclare(s scan.Scanner, output langoutput.T) {
 	// check if doing assignation at the same time
 	if s.Match("<") {
 		s.Must("-")
-		value := s.UntilEOL() // eats the ';'
-		output.Writef(" = %s;", value)
+		value := s.Expr()
+		s.Must(";")
+		output.Writef(" = %s;", translate.Expr(value))
 	} else {
 		s.Must(";")
 	}
