@@ -5,6 +5,7 @@ import (
 	"algo-iut/internal/scan"
 	"algo-iut/internal/tabanalyser"
 	"algo-iut/internal/transpiler/loops"
+	"algo-iut/internal/transpiler/translate"
 	"strings"
 )
 
@@ -27,6 +28,17 @@ func doSaisir(s scan.Scanner, output langoutput.T) {
 	s.Must(")")
 	s.Must(";")
 	output.Writef("std::cin >> %s;", variable)
+}
+
+func doAllonger(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	vec := translate.Expr(s.Expr())
+	s.Must(",")
+	amount := translate.Expr(s.Expr())
+	s.Must(")")
+	s.Must(";")
+
+	output.Writef("%v.resize(%v.size() + %v);", vec, vec, amount)
 }
 
 // scan a function/procedure body. Returns when encountering "fin"
@@ -102,6 +114,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	case "saisir":
 		s.Advance()
 		doSaisir(s, output)
+	case "allonger":
+		s.Advance()
+		doAllonger(s, output)
 	// others
 	case "ligne_suivante":
 		s.Advance()
