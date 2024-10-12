@@ -104,7 +104,6 @@ func TestExamples(t *testing.T) {
 			t.Parallel()
 			var cpp_data string
 			t.Run("Transpile", func(t *testing.T) {
-				t.Parallel()
 				var err error
 				cpp_data, err = testOneSyntax(entry)
 				if err != nil {
@@ -113,7 +112,6 @@ func TestExamples(t *testing.T) {
 			})
 			if cpp_data != "" {
 				t.Run("CheckCpp", func(t *testing.T) {
-					t.Parallel()
 					err := checkOneCpp(cpp_data)
 					if err != nil {
 						t.Fatal(err)
