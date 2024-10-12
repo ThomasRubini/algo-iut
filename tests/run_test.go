@@ -55,6 +55,10 @@ func testOneSyntax(filepath string) (cpp_data string, err error) {
 }
 
 func checkOneCpp(cpp_data string) (err error) {
+	if cpp_data == "" {
+		panic("checkOneCpp: cpp_data is empty")
+	}
+
 	cmd := exec.Command("g++", "-x", "c++", "-o", "/dev/null", "-")
 	cmd.Stdin = strings.NewReader(cpp_data)
 	cmd.Stdout = os.Stdout
@@ -109,15 +113,16 @@ func TestExamples(t *testing.T) {
 				if err != nil {
 					t.Fatal(err)
 				}
+				if cpp_data == "" {
+					panic("Transpile returned nothing")
+				}
 			})
-			if cpp_data != "" {
-				t.Run("CheckCpp", func(t *testing.T) {
-					err := checkOneCpp(cpp_data)
-					if err != nil {
-						t.Fatal(err)
-					}
-				})
-			}
+			t.Run("CheckCpp", func(t *testing.T) {
+				err := checkOneCpp(cpp_data)
+				if err != nil {
+					t.Fatal(err)
+				}
+			})
 		})
 	}
 }
