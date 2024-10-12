@@ -59,7 +59,7 @@ func checkOneCpp(cpp_data string) (err error) {
 		panic("checkOneCpp: cpp_data is empty")
 	}
 
-	cmd := exec.Command("g++", "-x", "c++", "-o", "/dev/null", "-")
+	cmd := exec.Command("g++", "-x", "c++", "--shared", "-fPIC", "-o", "/dev/null", "-")
 	cmd.Stdin = strings.NewReader(cpp_data)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
