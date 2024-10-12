@@ -10,7 +10,8 @@ import (
 )
 
 func doReturn(s scan.Scanner, output langoutput.T) {
-	value := s.UntilEOL()
+	value := translate.Expr(s.Expr())
+	s.Must(";")
 	output.Writef("return %s;", value)
 }
 
