@@ -1,36 +1,14 @@
-algorithme compteurVoyelle
-debut 
-    declarer voyelle : tableau_de 6 string;
-    declarer tabString : tableau_de X entier;
-    declarer cptNombreVoyelle : entier_naturel <- 0;
-    declarer tabNbChaqueVoyelle : tableau_de entier_naturel;
-    voyelle <- "aeiouy";
-    tabString <- "Je suis une chaine de caractere";
-    pour (i variant_de 0 a taille(tabString)-1)
+fonction trouveCarDansStr (caract : in caractere, chaine : in string, dbt : in  entier_naturel) renvoie entier_naturel
+debut
+    declarer i : entier_naturel; 
+    i <- dbt;
+    tant_que (i < taille(chaine) ET_ALORS 
+              caract ne_vaut_pas chaine[i])
     faire 
-        declarer j : entier_naturel <- 0;
-        tant_que(j < taille(voyelle)-1)
-        faire 
-            si (voyelle[j] vaut tabString[i])
-                cptNombreVoyelle <- cptNombreVoyelle+1;
-                sortie;
-            fsi
-            j <- j +1;
-        ffaire
+        i <- i + 1;
     ffaire
-    pour (i variant_de 0 a taille(voyelle)-1) 
-    faire
-        tabNbChaqueVoyelle[i] <- comptCaractV2(voyelle[i],tabString);
-    ffaire
-    afficher(cptNombreVoyelle, tabNbChaqueVoyelle);
-    pour (i variant_de 0 a taille(voyelle)-1) 
-    faire
-        afficher("La voyelle ", voyelle[i], " apparait ", tabNbChaqueVoyelle[i], " fois a une fréquece de ", 
-                 tabNbChaqueVoyelle[i]*100/taille(chaine));
-    ffaire
+    renvoie i;
 fin
-
-//correction:
 
 algorithme comptPetitEnsembleV2
 debut 
@@ -46,7 +24,7 @@ debut
     pour (i variant_de 0 a taille (chaine) - 1)
     faire
         declarer pos : entier_naturel <- 
-            trouveCarDansStr (chaine[i], voyelle);
+            trouveCarDansStr (chaine[i], voyelles, 0);
         si (pos vaut 6) continue;
         fsi
         tabCpt [pos] <- tabCpt [pos] + 1;
@@ -60,7 +38,7 @@ debut
 
     pour (i variant_de 0 a taille (tabCpt) -1)
     faire
-        afficher ("la voyelle", voyelle[i], "apparait ", 
+        afficher ("la voyelle", voyelles[i], "apparait ", 
         tabCpt[i], " fois en absolu et ", 
         tabCpt[i] * 100 / somme , " % en relatif") ;
         ligne_suivante;

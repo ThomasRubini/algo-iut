@@ -5,7 +5,7 @@ debut
 	declarer Val : entier;
 	pour (i variant_de 0 a taille (tabInt) - 1)
 	faire
-		Val <- Rand (Min, Max);
+		Val <- rand (Min, Max);
 		tabInt [i] <- Val;
 	ffaire	
 fin

@@ -1,4 +1,16 @@
-fonction comptCaract (cararact : in caractere, chaine : in string) renvoie entier_naturel
+fonction trouveCarDansStr (caract : in caractere, chaine : in string, dbt : in  entier_naturel) renvoie entier_naturel
+debut
+    declarer i : entier_naturel; 
+    i <- dbt;
+    tant_que (i < taille(chaine) ET_ALORS 
+              caract ne_vaut_pas chaine[i])
+    faire 
+        i <- i + 1;
+    ffaire
+    renvoie i;
+fin
+
+fonction comptCaract (caract : in caractere, chaine : in string) renvoie entier_naturel
 debut
     declarer cpt : entier_naturel; 
     cpt <- 0;
@@ -7,6 +19,7 @@ debut
     boucle
         pos <- trouveCarDansStr (caract, chaine, pos);
         si (pos vaut taille (chaine)) sortie;
+        fsi
         cpt <- cpt + 1;
         pos <- pos + 1;
     fboucle
