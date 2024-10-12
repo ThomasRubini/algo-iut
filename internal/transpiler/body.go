@@ -41,6 +41,21 @@ func doAllonger(s scan.Scanner, output langoutput.T) {
 	output.Writef("%v.resize(%v.size() + %v);", vec, vec, amount)
 }
 
+func doPermuter(s scan.Scanner, output langoutput.T) {
+	s.Must("(")
+	valueA := translate.Expr(s.Expr())
+	s.Must(",")
+	valueB := translate.Expr(s.Expr())
+	s.Must(")")
+	s.Must(";")
+
+	output.Write("{")
+	output.Writef("auto tmp = %v; ", valueA)
+	output.Writef("%v = %v; ", valueA, valueB)
+	output.Writef("%v = tmp; ", valueB)
+	output.Write("}")
+}
+
 // scan a function/procedure body. Returns when encountering "fin"
 func doBody(s scan.Scanner, output langoutput.T, src string) {
 	tabsPrefix := tabanalyser.Do(src)
@@ -117,6 +132,9 @@ func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {
 	case "allonger":
 		s.Advance()
 		doAllonger(s, output)
+	case "permuter":
+		s.Advance()
+		doPermuter(s, output)
 	// others
 	case "ligne_suivante":
 		s.Advance()
