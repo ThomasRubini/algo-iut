@@ -41,7 +41,7 @@ debut
 	declarer n : entier_naturel;
 	afficher ("entrer la taille du tableau : ");
 	saisir (n);
-	declarer tabInts : tableau_de N entier;
+	declarer tabInts : tableau_de n entier;
 	generetabInt (tabInts, -100, 100);
 	affichetabInt (tabInts, '\t', 10);
 	ligne_suivante;
