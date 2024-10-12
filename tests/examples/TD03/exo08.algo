@@ -18,7 +18,7 @@ debut
 	pour (i variant_de 0 a taille(tabInt) - 1) //v2 -2 
 	faire
 
-		afficher (TabInt [i]); // afficher (TabInt [i], ' '); // ou " " ? sur exo 7
+		afficher (tabInt [i]); // afficher (tabInt [i], ' '); // ou " " ? sur exo 7
 		cpt <- cpt + 1;
 		si (modulo (cpt, 5) vaut 0)
 			ligne_suivante;

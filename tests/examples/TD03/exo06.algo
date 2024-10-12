@@ -18,7 +18,7 @@ debut
 	pour (i variant_de 0 a taille(tabInt) - 1)
 	faire
 
-		afficher (TabInt [i], ' '); // ou " " ?
+		afficher (tabInt [i], ' '); // ou " " ?
 		cpt <- cpt + 1;
 		si (cpt vaut 5)
 			ligne_suivante;
