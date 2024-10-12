@@ -5,6 +5,7 @@ debut
 		afficher (invite);
 		saisir(n);
 		si (n > x) sortie;
+		fsi
 		afficher (msgErr);
 		ligne_suivante;
 	fboucle	
@@ -100,6 +101,7 @@ debut
 			ffaire
 			//du coup le test de sortie change puisqu'on ne peut atteindre la sentinelle
 			si (tabInt[pos] ne_vaut_pas tabInt[nb]) sortie;
+			fsi
 		fboucle	
 	ffaire	
 fin

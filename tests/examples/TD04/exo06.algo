@@ -5,6 +5,7 @@ debut
 		afficher (invite);
 		saisir(n);
 		si (n > x) sortie;
+		fsi
 		afficher (msgErr);
 		ligne_suivante;
 	fboucle	
