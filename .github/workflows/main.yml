@@ -24,6 +24,11 @@ jobs:
 
       - name: Upload test coverage to Codecov
         uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        if: ${{ env.CODECOV_TOKEN }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       
       - name: Build for all platforms
         run: |
