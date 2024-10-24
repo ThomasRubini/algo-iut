@@ -20,7 +20,10 @@ jobs:
         uses: actions/setup-go@v5
 
       - name: Test
-        run: go test ./...
+        run: go test ./... -covermode=atomic -coverprofile=coverage.out
+
+      - name: Upload test coverage to Codecov
+        uses: codecov/codecov-action@v3
       
       - name: Build for all platforms
         run: |
