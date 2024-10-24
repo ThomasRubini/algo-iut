@@ -28,6 +28,7 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         if: ${{ env.CODECOV_TOKEN }}
         with:
+          fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
       
       - name: Build for all platforms
