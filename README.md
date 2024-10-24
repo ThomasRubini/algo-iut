@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/github/ThomasRubini/algo-iut/graph/badge.svg?token=RPNNNZSGJD)](https://codecov.io/github/ThomasRubini/algo-iut)
+
 # What ?
 
 This projet can transpile the custom (fr*nch) programming language used at the IUT Aix-Marseille, into C++.
