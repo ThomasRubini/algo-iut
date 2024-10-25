@@ -20,7 +20,7 @@ func doAfficher(s scan.Scanner, output langoutput.T) {
 	args := getFunctionArgs(s)
 	s.Must(")")
 	s.Must(";")
-	output.Writef("std::cout << %s;", strings.Join(args, " << "))
+	output.Writef("cout << %s;", strings.Join(args, " << "))
 }
 
 func doSaisir(s scan.Scanner, output langoutput.T) {
@@ -28,7 +28,7 @@ func doSaisir(s scan.Scanner, output langoutput.T) {
 	variable := s.LValue()
 	s.Must(")")
 	s.Must(";")
-	output.Writef("std::cin >> %s;", variable)
+	output.Writef("cin >> %s;", variable)
 }
 
 func doAllonger(s scan.Scanner, output langoutput.T) {
@@ -79,7 +79,7 @@ func doBody(s scan.Scanner, output langoutput.T, src string) {
 
 func doLigneSuivante(s scan.Scanner, output langoutput.T) {
 	s.Must(";")
-	output.Write("std::cout << std::endl;")
+	output.Write("cout << endl;")
 }
 
 func doLine(s scan.Scanner, output langoutput.T, tabsPrefix []string) bool {

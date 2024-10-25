@@ -16,5 +16,5 @@ func TestTypeBasic(t *testing.T) {
 func TestTypeTableau(t *testing.T) {
 	o := langoutput.NewString()
 	doTypeNoSize(scan.New("tableau_de entier"), o)
-	assert.Equal(t, "std::vector<int>", o.String())
+	assert.Equal(t, "vector<int>", o.String())
 }

@@ -22,13 +22,13 @@ func doTypeMaybeSize(s scan.Scanner, output langoutput.T) (size *string) {
 		maybeType := translate.Type(tok)
 		if maybeType == nil { // if not a type, then it must be a size
 			size := s.Expr()
-			output.Write("std::vector<")
+			output.Write("vector<")
 			_ = doTypeMaybeSize(s, output)
 			output.Write(">")
 			return ref.String(translate.Expr(size))
 		} else {
 			s.Advance()
-			output.Writef("std::vector<%s>", *maybeType)
+			output.Writef("vector<%s>", *maybeType)
 			return nil
 		}
 	} else if s.Match("constante") {

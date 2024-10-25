@@ -22,6 +22,11 @@ func Do(s scan.Scanner, output langoutput.T, src string) (transpile_err *Error) 
 
 	output.Write("#include <iostream>\n")
 	output.Write("#include <vector>\n")
+	output.Write("\n")
+
+	// We do not use `using namespace std;` to avoid collisions with a lot of function names people might write in the algo language (e.g. abs())
+	output.Write("using std::cout, std::endl, std::cin, std::string, std::vector;\n")
+
 	doRoot(s, output, src)
 
 	return nil
