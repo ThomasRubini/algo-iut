@@ -20,7 +20,7 @@ func doAfficher(s scan.Scanner, output langoutput.T) {
 	args := getFunctionArgs(s)
 	s.Must(")")
 	s.Must(";")
-	output.Writef("std::cout << %s << std::endl;", strings.Join(args, " << "))
+	output.Writef("std::cout << %s;", strings.Join(args, " << "))
 }
 
 func doSaisir(s scan.Scanner, output langoutput.T) {
