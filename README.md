@@ -13,7 +13,7 @@ This project works as a CLI (available on Linux/Windows/MacOS), and as an online
 
 # FAQ
 ## Non-accepted syntaxes
-We aren't sure if these syntaxes are valid or not (ask Casali)
+We aren't sure if these syntaxes are valid or not (ask it to Mr. Casali !)
 
 ### Declaration without type
 e.g. `declarer a <- rand(1, 2);`
