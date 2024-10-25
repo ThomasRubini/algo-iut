@@ -35,7 +35,7 @@ func getFunctionOrProcedureHeaderArgs(s scan.Scanner) []typedVar {
 		if slices.Contains([]string{"in", "out", "in_out"}, argType) {
 			s.Advance()
 			// idk if there is a real difference between them in generated C++
-			needRef = argType == "out"
+			needRef = argType == "out" || argType == "in_out"
 		} else {
 			panic(fmt.Sprintf("Invalid arg type: '%s'", argType))
 		}
