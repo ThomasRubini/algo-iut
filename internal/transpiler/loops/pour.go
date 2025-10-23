@@ -24,7 +24,7 @@ func DoPourLoop(s scan.Scanner, output langoutput.T) {
 	output.Write(translate.Expr(min))
 	output.Write("; ")
 	output.Write(varName)
-	output.Write(" < ")
+	output.Write(" <= ")
 	output.Write(translate.Expr(max))
 	output.Write("; ")
 	output.Write(varName)
