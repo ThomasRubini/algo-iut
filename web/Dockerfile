@@ -16,7 +16,7 @@ RUN GOOS=js GOARCH=wasm go build -o main.wasm .
 # Raw web content
 FROM scratch AS raw
 COPY --from=build /build/main.wasm ./
-COPY --from=build /usr/local/go/misc/wasm/wasm_exec.js .
+COPY --from=build /usr/local/go/lib/wasm/wasm_exec.js .
 COPY web/content ./
 
 # Nginx image to access web content
