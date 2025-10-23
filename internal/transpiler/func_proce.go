@@ -66,7 +66,12 @@ func writeFunctionOrProcedureHeader(functionName string, args []typedVar, retTyp
 	// write
 	output.Writef("%s %s(", retType, functionName)
 	for i, arg := range args {
-		output.Write(fmt.Sprintf("%s %s", arg.varType, arg.varName))
+		output.Write(arg.varType)
+		if arg.ref {
+			output.Write("&")
+		}
+		output.Write(" ")
+		output.Write(arg.varName)
 		if i < len(args)-1 {
 			output.Write(", ")
 		}
